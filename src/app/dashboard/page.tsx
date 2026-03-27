@@ -1,19 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { SAMPLE_KEY_LEVELS, SAMPLE_MARKETS, SAMPLE_SESSIONS, SAMPLE_CATALYSTS, SAMPLE_DAILY_PREP, SAMPLE_TRADE_PLAN, WORKFLOW_STEPS } from '@/lib/constants';
+import { SAMPLE_KEY_LEVELS } from '@/lib/constants';
 import { formatPrice } from '@/lib/utils';
 import { TradeReadinessModal } from '@/components/dashboard/TradeReadinessModal';
 
 export default function DashboardPage() {
   const [modalOpen, setModalOpen] = useState(false);
-  const prep = SAMPLE_DAILY_PREP;
   const levels = SAMPLE_KEY_LEVELS;
-  const markets = SAMPLE_MARKETS;
-  const sessions = SAMPLE_SESSIONS;
-  const catalysts = SAMPLE_CATALYSTS;
-  const plan = SAMPLE_TRADE_PLAN;
-  const steps = WORKFLOW_STEPS.map((s, i) => ({ ...s, completed: i < 3 }));
 
   return (
     <div className="space-y-6 animate-fade-in-up pb-8">

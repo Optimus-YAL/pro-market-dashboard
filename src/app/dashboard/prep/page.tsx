@@ -1,6 +1,6 @@
 'use client';
 
-import { SAMPLE_KEY_LEVELS, SAMPLE_MARKETS, SAMPLE_DAILY_PREP } from '@/lib/constants';
+import { SAMPLE_KEY_LEVELS } from '@/lib/constants';
 import { formatPrice } from '@/lib/utils';
 import { useState } from 'react';
 

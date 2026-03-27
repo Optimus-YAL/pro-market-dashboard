@@ -24,7 +24,7 @@ export default async function PerformanceTrackerPage() {
     });
 
     let cumulative = 0;
-    entries.forEach((entry: any) => {
+    entries.forEach((entry: { pnl: number; date: Date }) => {
       cumulative += entry.pnl;
       chartData.push({
         time: new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),

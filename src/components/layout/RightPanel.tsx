@@ -3,7 +3,6 @@
 import { Card, CardTitle } from '@/components/ui/card';
 import { BiasScore, BiasMeter } from '@/components/ui/biasscore';
 import { StatusIndicator } from '@/components/ui/statusindicator';
-import { Badge } from '@/components/ui/badge';
 import { SAMPLE_DAILY_PREP, SAMPLE_CATALYSTS, INITIAL_RISK_STATE } from '@/lib/constants';
 import { AlertTriangle, Zap, StickyNote, X } from 'lucide-react';
 import { cn } from '@/lib/utils';

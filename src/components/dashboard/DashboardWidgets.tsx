@@ -1,7 +1,6 @@
 'use client';
 
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { ProgressTracker } from '@/components/ui/progresstracker';
 import { SAMPLE_TRADE_PLAN, WORKFLOW_STEPS } from '@/lib/constants';
 import { FileText, Target } from 'lucide-react';

@@ -1,11 +1,11 @@
 'use client';
 
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button, Select, Textarea } from '@/components/ui/formelements';
 import { SAMPLE_SESSIONS } from '@/lib/constants';
 import { formatPrice, cn } from '@/lib/utils';
-import { Clock, Save, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Save, CheckCircle, AlertTriangle } from 'lucide-react';
 
 const SESSION_COLORS: Record<string, { accent: string; bg: string }> = {
   tokyo:  { accent: 'border-l-purple-500', bg: 'from-purple-500/5' },

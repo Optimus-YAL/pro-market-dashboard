@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { SAMPLE_SESSIONS } from '@/lib/constants';
 import { formatPrice, cn } from '@/lib/utils';
-import { Clock } from 'lucide-react';
+
 
 const SESSION_COLORS: Record<string, string> = {
   tokyo: 'border-l-purple-500',

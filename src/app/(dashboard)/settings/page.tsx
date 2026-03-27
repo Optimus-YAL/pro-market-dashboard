@@ -1,10 +1,10 @@
+import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Edit, Bolt, History, FlaskConical, X } from "lucide-react";
 
@@ -25,7 +25,7 @@ export default function SettingsPage() {
         <Card className="md:col-span-2 p-6 bg-card border-border rounded-lg shadow-sm">
           <div className="flex items-center gap-6 mb-8">
             <div className="relative group">
-              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq9aLJVk6tX2MMYWmj6B5TPedEXtsUl1m8cK-NJYhqRrgybLKZ0eyaGJKglzXCSBn2M8sck72k5hmq3m8WtywnGLB5r3-Njp_ZKU7SA5uxRkXqOcVJ6hyDyptLhaSDhnFr_KmOhmQ4UfibBkllEsMh9TZxMayEvnQVOdiKfV48-PJh93Z1bgF2v6ny3KhVkhNTM2aWxQbjDSG-O2UEdUb2MEODf7dW44gFg9UAwzQTwlvxZlFRQ5vAyTpz4iZYSslrpGGlIXnkNKMx" alt="Avatar" className="w-20 h-20 rounded-full object-cover border-2 border-primary/20" />
+              <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq9aLJVk6tX2MMYWmj6B5TPedEXtsUl1m8cK-NJYhqRrgybLKZ0eyaGJKglzXCSBn2M8sck72k5hmq3m8WtywnGLB5r3-Njp_ZKU7SA5uxRkXqOcVJ6hyDyptLhaSDhnFr_KmOhmQ4UfibBkllEsMh9TZxMayEvnQVOdiKfV48-PJh93Z1bgF2v6ny3KhVkhNTM2aWxQbjDSG-O2UEdUb2MEODf7dW44gFg9UAwzQTwlvxZlFRQ5vAyTpz4iZYSslrpGGlIXnkNKMx" alt="Avatar" width={80} height={80} className="w-20 h-20 rounded-full object-cover border-2 border-primary/20" />
               <button className="absolute bottom-0 right-0 bg-primary text-primary-foreground rounded-full p-1.5 shadow-lg active:scale-90 transition-transform">
                 <Edit className="w-3 h-3" />
               </button>
