@@ -1,0 +1,233 @@
+// ============================================================
+// Prisma Schema — Pro Market Dashboard
+// Prisma 7 — URL moved to prisma.config.ts
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ─── User ───────────────────────────────────────────────────
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  passwordHash  String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  settings       Settings?
+  dailyPreps     DailyPrep[]
+  tradePlans     TradePlan[]
+  journalEntries JournalEntry[]
+  reviewEntries  ReviewEntry[]
+  presets        Preset[]
+}
+
+// ─── Settings ───────────────────────────────────────────────
+model Settings {
+  id              String  @id @default(cuid())
+  userId          String  @unique
+  user            User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  maxTradesPerDay Int     @default(3)
+  maxDailyLoss    Float   @default(1500)
+  lockAfterLosses Int     @default(2)
+  defaultPreset   String  @default("default")
+  timezone        String  @default("America/New_York")
+  theme           String  @default("dark")
+  accentColor     String  @default("blue")
+  dataMode        String  @default("manual")
+}
+
+// ─── Daily Prep ─────────────────────────────────────────────
+model DailyPrep {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date           String
+  marketRegime   String   @default("trending")
+  macroEnv       String   @default("mixed")
+  biasScore      Int      @default(0)
+  activePreset   String   @default("default")
+  tradeStatus    String   @default("no-trade")
+  contextNotes   String?
+  summaryNotes   String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  keyLevels      KeyLevels?
+  marketContexts MarketContext[]
+  sessions       SessionSummary[]
+  catalysts      CatalystEvent[]
+  supplyDemand   SupplyDemandZone[]
+  checklist      TradeChecklist?
+
+  @@unique([userId, date])
+}
+
+// ─── Key Levels ─────────────────────────────────────────────
+model KeyLevels {
+  id          String    @id @default(cuid())
+  dailyPrepId String    @unique
+  dailyPrep   DailyPrep @relation(fields: [dailyPrepId], references: [id], onDelete: Cascade)
+  pdh         Float?
+  pdl         Float?
+  pc          Float?
+  spikeHigh   Float?
+  spikeBase   Float?
+  globexHigh  Float?
+  globexLow   Float?
+  tokyoHigh   Float?
+  tokyoLow    Float?
+  londonHigh  Float?
+  londonLow   Float?
+  vwap        Float?
+}
+
+// ─── Market Context ─────────────────────────────────────────
+model MarketContext {
+  id           String    @id @default(cuid())
+  dailyPrepId  String
+  dailyPrep    DailyPrep @relation(fields: [dailyPrepId], references: [id], onDelete: Cascade)
+  market       String
+  direction    String    @default("flat")
+  contribution String   @default("neutral")
+  notes        String?
+}
+
+// ─── Session Summary ────────────────────────────────────────
+model SessionSummary {
+  id             String    @id @default(cuid())
+  dailyPrepId    String
+  dailyPrep      DailyPrep @relation(fields: [dailyPrepId], references: [id], onDelete: Cascade)
+  session        String
+  classification String    @default("range")
+  high           Float?
+  low            Float?
+  notes          String?
+}
+
+// ─── Catalyst Event ─────────────────────────────────────────
+model CatalystEvent {
+  id          String    @id @default(cuid())
+  dailyPrepId String
+  dailyPrep   DailyPrep @relation(fields: [dailyPrepId], references: [id], onDelete: Cascade)
+  type        String    @default("economic")
+  description String
+  impact      String    @default("medium")
+  time        String?
+}
+
+// ─── Supply/Demand Zone ─────────────────────────────────────
+model SupplyDemandZone {
+  id          String    @id @default(cuid())
+  dailyPrepId String
+  dailyPrep   DailyPrep @relation(fields: [dailyPrepId], references: [id], onDelete: Cascade)
+  type        String    @default("demand")
+  priceHigh   Float
+  priceLow    Float
+  priority    Int       @default(1)
+  notes       String?
+}
+
+// ─── Trade Checklist ────────────────────────────────────────
+model TradeChecklist {
+  id                  String    @id @default(cuid())
+  dailyPrepId         String    @unique
+  dailyPrep           DailyPrep @relation(fields: [dailyPrepId], references: [id], onDelete: Cascade)
+  regimeIdentified    Boolean   @default(false)
+  sessionAligned      Boolean   @default(false)
+  crossMarketAligned  Boolean   @default(false)
+  catalystReviewed    Boolean   @default(false)
+  atKeyLevel          Boolean   @default(false)
+  confirmationPresent Boolean   @default(false)
+  riskDefined         Boolean   @default(false)
+  entryPlanDefined    Boolean   @default(false)
+  exitPlanDefined     Boolean   @default(false)
+  setupGrade          String?
+}
+
+// ─── Trade Plan ─────────────────────────────────────────────
+model TradePlan {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date           String
+  dailyBias      String?
+  longScenarios  String?
+  shortScenarios String?
+  longEntry      String?
+  longStop       String?
+  longTarget1    String?
+  longTarget2    String?
+  shortEntry     String?
+  shortStop      String?
+  shortTarget1   String?
+  shortTarget2   String?
+  invalidation   String?
+  setupQuality   String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([userId, date])
+}
+
+// ─── Journal Entry ──────────────────────────────────────────
+model JournalEntry {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date       String
+  setup      String
+  direction  String
+  entry      Float
+  exit       Float?
+  stop       Float
+  target     Float
+  pnl        Float?
+  notes      String?
+  screenshot String?
+  lesson     String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// ─── Review Entry ───────────────────────────────────────────
+model ReviewEntry {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date            String
+  followedPlan    Boolean  @default(false)
+  bestTrade       String?
+  worstMistake    String
+  oneImprovement  String
+  emotionalState  String   @default("focused")
+  executionScore  Int      @default(5)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([userId, date])
+}
+
+// ─── Preset ─────────────────────────────────────────────────
+model Preset {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  label       String
+  markets     String
+  panelOrder  String
+  focusNote   String?
+  cautionNote String?
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, name])
+}
