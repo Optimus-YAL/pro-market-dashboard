@@ -15,14 +15,14 @@ export function Sidebar() {
         </div>
       </div>
       <nav className="flex-1 space-y-1">
-        <NavItem icon={Terminal} label="Trading Journal" href="/journal" active />
+        <NavItem icon={Terminal} label="Trading Journal" href="/journal" />
         <NavItem icon={BarChart2} label="Performance Tracker" href="/performance" />
-        <NavItem icon={Lightbulb} label="Strategy Desk" href="#" />
+        <NavItem icon={Lightbulb} label="Presets" href="/presets" />
         <NavItem icon={Shield} label="Risk Manager" href="#" />
         <NavItem icon={MessageSquare} label="Comms" href="#" />
       </nav>
       <div className="mt-auto space-y-2">
-        <NavItem icon={Settings} label="Settings" href="#" />
+        <NavItem icon={Settings} label="Settings" href="/settings" />
         <div className="pt-4 mt-4 border-t border-white/5">
           <button className="w-full py-3 bg-primary text-primary-foreground font-bold text-xs tracking-widest rounded-sm hover:brightness-110 active:scale-[0.98] transition-all">
             EXECUTE TRADE
