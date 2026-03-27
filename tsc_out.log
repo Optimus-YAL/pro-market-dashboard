@@ -1,0 +1,53 @@
+src/app/(dashboard)/journal/page.tsx(2,23): error TS1261: Already included file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/badge.tsx' differs from file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/Badge.tsx' only in casing.
+  The file is in the program because:
+    Imported via "@/components/ui/badge" from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/app/(dashboard)/journal/page.tsx'
+    Imported via "@/components/ui/badge" from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/app/(dashboard)/performance/page.tsx'
+    Imported via '@/components/ui/badge' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/app/dashboard/sessions/page.tsx'
+    Imported via '@/components/ui/badge' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/CatalystPanel.tsx'
+    Imported via '@/components/ui/badge' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/CrossMarketContext.tsx'
+    Imported via '@/components/ui/badge' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/DailyOverview.tsx'
+    Imported via '@/components/ui/badge' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/DashboardWidgets.tsx'
+    Imported via '@/components/ui/badge' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/SessionAnalysis.tsx'
+    Imported via '@/components/ui/badge' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/SupplyDemandZones.tsx'
+    Imported via '@/components/ui/badge' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/layout/RightPanel.tsx'
+    Matched by include pattern '**/*.tsx' in 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/tsconfig.json'
+src/app/(dashboard)/performance/page.tsx(1,22): error TS1261: Already included file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/card.tsx' differs from file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/Card.tsx' only in casing.
+  The file is in the program because:
+    Imported via "@/components/ui/card" from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/app/(dashboard)/performance/page.tsx'
+    Imported via '@/components/ui/card' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/app/dashboard/sessions/page.tsx'
+    Imported via '@/components/ui/card' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/CatalystPanel.tsx'
+    Imported via '@/components/ui/card' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/CrossMarketContext.tsx'
+    Imported via '@/components/ui/card' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/DailyOverview.tsx'
+    Imported via '@/components/ui/card' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/DashboardWidgets.tsx'
+    Imported via '@/components/ui/card' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/KeyLevelMap.tsx'
+    Imported via '@/components/ui/card' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/SessionAnalysis.tsx'
+    Imported via '@/components/ui/card' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/SupplyDemandZones.tsx'
+    Imported via '@/components/ui/card' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/layout/RightPanel.tsx'
+    Matched by include pattern '**/*.tsx' in 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/tsconfig.json'
+src/app/dashboard/journal/page.tsx(4,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/app/dashboard/journal/page.tsx(4,23): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPnL'.
+src/app/dashboard/page.tsx(5,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/app/dashboard/prep/page.tsx(4,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/app/dashboard/sessions/page.tsx(7,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/app/dashboard/sessions/page.tsx(43,26): error TS2322: Type '"bullish" | "bearish" | "neutral" | "caution"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+  Type '"bullish"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+src/components/dashboard/CatalystPanel.tsx(25,18): error TS2322: Type '"caution"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+src/components/dashboard/CatalystPanel.tsx(57,19): error TS2322: Type '"active" | "neutral" | "caution"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+  Type '"active"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+src/components/dashboard/CrossMarketContext.tsx(18,18): error TS2322: Type '"bullish"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+src/components/dashboard/CrossMarketContext.tsx(19,18): error TS2322: Type '"bearish"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+src/components/dashboard/CrossMarketContext.tsx(46,17): error TS2322: Type '"bullish" | "bearish" | "neutral"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+  Type '"bullish"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+src/components/dashboard/DailyOverview.tsx(27,18): error TS2322: Type '"bullish" | "neutral"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+  Type '"bullish"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+src/components/dashboard/DailyOverview.tsx(39,13): error TS2322: Type '"bullish" | "bearish" | "caution"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+  Type '"bullish"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+src/components/dashboard/KeyLevelMap.tsx(5,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/components/dashboard/SessionAnalysis.tsx(6,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/components/dashboard/SessionAnalysis.tsx(47,16): error TS2322: Type '"bullish" | "caution"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+  Type '"bullish"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+src/components/dashboard/SessionAnalysis.tsx(76,22): error TS2322: Type '"bullish" | "bearish" | "neutral" | "caution"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+  Type '"bullish"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+src/components/dashboard/SupplyDemandZones.tsx(6,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/components/dashboard/SupplyDemandZones.tsx(46,26): error TS2322: Type '"active" | "bullish" | "bearish" | "caution"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.
+  Type '"active"' is not assignable to type '"link" | "default" | "secondary" | "destructive" | "outline" | "ghost" | null | undefined'.

@@ -1,10 +1,10 @@
 'use client';
 
-import { Card, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { SAMPLE_DAILY_PREP, REGIME_LABELS, MACRO_LABELS } from '@/lib/constants';
-import { BiasScore, BiasMeter } from '@/components/ui/BiasScore';
-import { StatusIndicator } from '@/components/ui/StatusIndicator';
+import { BiasScore, BiasMeter } from '@/components/ui/biasscore';
+import { StatusIndicator } from '@/components/ui/statusindicator';
 import { Activity, Globe, Gauge } from 'lucide-react';
 
 export function DailyOverview() {

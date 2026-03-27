@@ -1,13 +1,7 @@
-'use client';
-
 import { TrendingUp, Mail, Lock, HelpCircle, Sparkles } from 'lucide-react';
-import Link from 'next/link';
-import { useState } from 'react';
+import { login, signup } from './actions';
 
-export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+export default function LoginPage({ searchParams }: { searchParams: { error?: string } }) {
   return (
     <div className="flex h-screen overflow-hidden bg-surface-primary">
       {/* Left Panel — Editorial & Brand Narrative */}
@@ -15,10 +9,10 @@ export default function LoginPage() {
         {/* Brand Identity */}
         <div className="z-10">
           <div className="flex items-center gap-2 mb-12">
-            <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
+            <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
               <TrendingUp className="w-4 h-4 text-white" />
             </div>
-            <span className="text-xl font-black text-blue-400 tracking-tighter">Pro Market</span>
+            <span className="text-xl font-black text-primary tracking-tighter">Pro Market</span>
           </div>
           <h1 className="text-6xl font-extrabold tracking-tighter leading-tight text-text-primary max-w-xl mb-6">
             Trade with structure. <br />Execute with discipline.
@@ -35,13 +29,13 @@ export default function LoginPage() {
           <img
             className="w-full h-full object-cover opacity-80"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf77NHwu5Fpp-dn5wMapTDs49XmYWRKjNx2CyU4GS0zajnhzSP-KlTzMlNr8UkhZkWHqgWUeXX31KObFMD2TDj0lGiClq7QIbiUf_APQqkppO9CBa7AvBZoshosCrQNQs3kckkkXskbpteSCNrqtrc2JwYqaVlD3PkXnVC2aqeAqmLIUrusB_hqjmtE0fylCqCb3_nTyCZxrSbPnB_S13e8YIFZ8i2wFdXD1YMyu2a8H7zRc9ED29YnGpEha6aLqVtW7ICjGJ-Vr1S"
-            alt="Professional dark themed financial dashboard with glowing blue candlesticks and analytical data charts"
+            alt="Professional dark themed financial dashboard with glowing primary candlesticks and analytical data charts"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0d0e10] via-transparent to-transparent" />
         </div>
 
         {/* Ambient Background Glow */}
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px]" />
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
       </section>
 
       {/* Right Panel — Interaction Hub */}
@@ -57,7 +51,7 @@ export default function LoginPage() {
         <div className="w-full max-w-[420px]">
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-8 lg:hidden">
-            <div className="w-7 h-7 bg-blue-600 rounded flex items-center justify-center">
+            <div className="w-7 h-7 bg-primary rounded flex items-center justify-center">
               <TrendingUp className="w-3.5 h-3.5 text-white" />
             </div>
             <span className="text-sm font-black uppercase tracking-tight">Pro Market</span>
@@ -70,7 +64,13 @@ export default function LoginPage() {
               <p className="text-text-muted text-sm">Sign in to access your dashboard.</p>
             </div>
 
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+            {searchParams?.error && (
+              <div className="p-4 bg-error/10 border border-error/20 text-error text-sm rounded-sm font-medium">
+                {searchParams.error}
+              </div>
+            )}
+
+            <form className="space-y-5">
               <div className="space-y-2">
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-text-muted ml-1" htmlFor="email">
                   Work Email
@@ -79,11 +79,11 @@ export default function LoginPage() {
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-text-muted/50" />
                   <input
                     id="email"
+                    name="email"
                     type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    required
                     placeholder="name@institution.com"
-                    className="w-full bg-surface-elevated border-none rounded-sm py-3.5 pl-12 pr-4 text-sm text-text-primary placeholder:text-text-muted focus:ring-1 focus:ring-blue-500 transition-all outline-none"
+                    className="w-full bg-surface-elevated border-none rounded-sm py-3.5 pl-12 pr-4 text-sm text-text-primary placeholder:text-text-muted focus:ring-1 focus:ring-primary transition-all outline-none"
                   />
                 </div>
               </div>
@@ -93,7 +93,7 @@ export default function LoginPage() {
                   <label className="block text-[10px] font-bold uppercase tracking-widest text-text-muted" htmlFor="password">
                     Security Key
                   </label>
-                  <button type="button" className="text-xs text-blue-400 hover:underline">
+                  <button type="button" className="text-xs text-primary hover:underline">
                     Forgot?
                   </button>
                 </div>
@@ -101,21 +101,29 @@ export default function LoginPage() {
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-text-muted/50" />
                   <input
                     id="password"
+                    name="password"
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    required
                     placeholder="••••••••••••"
-                    className="w-full bg-surface-elevated border-none rounded-sm py-3.5 pl-12 pr-4 text-sm text-text-primary placeholder:text-text-muted focus:ring-1 focus:ring-blue-500 transition-all outline-none"
+                    className="w-full bg-surface-elevated border-none rounded-sm py-3.5 pl-12 pr-4 text-sm text-text-primary placeholder:text-text-muted focus:ring-1 focus:ring-primary transition-all outline-none"
                   />
                 </div>
               </div>
 
-              <Link
-                href="/dashboard"
-                className="w-full flex items-center justify-center py-4 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold rounded-sm tracking-tight hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-blue-600/20"
-              >
-                Sign In
-              </Link>
+              <div className="flex gap-4">
+                <button
+                  formAction={login}
+                  className="w-full flex items-center justify-center py-4 bg-gradient-to-r from-primary to-orange-600 text-white font-bold rounded-sm tracking-tight hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-primary/20"
+                >
+                  Sign In
+                </button>
+                <button
+                  formAction={signup}
+                  className="w-full flex items-center justify-center py-4 bg-surface-elevated/50 text-text-primary font-bold rounded-sm tracking-tight hover:bg-surface-elevated active:scale-[0.98] transition-all border border-white/[0.04]"
+                >
+                  Create Account
+                </button>
+              </div>
             </form>
 
             {/* Divider */}
@@ -136,11 +144,6 @@ export default function LoginPage() {
               <Sparkles className="w-4 h-4" />
               Send Magic Link
             </button>
-
-            <p className="text-center text-sm text-text-muted">
-              New to the platform?
-              <button className="text-blue-400 font-bold ml-1 hover:underline">Create Account</button>
-            </p>
           </div>
 
           {/* Footer Meta */}
@@ -155,10 +158,10 @@ export default function LoginPage() {
       {/* Mobile Bottom Bar */}
       <div className="lg:hidden fixed bottom-4 left-4 right-4 bg-surface-card/80 backdrop-blur-xl rounded-xl p-4 flex items-center justify-between shadow-2xl z-50 border border-white/[0.05]">
         <div className="flex items-center gap-2">
-          <TrendingUp className="w-4 h-4 text-blue-400" />
+          <TrendingUp className="w-4 h-4 text-primary" />
           <span className="text-[10px] font-bold uppercase tracking-widest">Security Layer</span>
         </div>
-        <button className="text-xs text-blue-400 font-bold">Help Center</button>
+        <button className="text-xs text-primary font-bold">Help Center</button>
       </div>
     </div>
   );

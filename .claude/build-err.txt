@@ -1,0 +1,59 @@
+
+> pro-market-dashboard@0.1.0 build
+> next build
+
+▲ Next.js 16.2.1 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.5s
+  Running TypeScript ...
+  Finished TypeScript in 2.8s ...
+  Collecting page data using 16 workers ...
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\lyvel\.gemini\antigravity\scratch\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\package-lock.json
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+Error: Failed to collect configuration for /performance
+    at ignore-listed frames {
+  [cause]: Error [PrismaClientInitializationError]: `PrismaClient` needs to be constructed with a non-empty, valid `PrismaClientOptions`:
+  
+  ```
+  new PrismaClient({
+    ...
+  })
+  ```
+  
+  or
+  
+  ```
+  constructor() {
+    super({ ... });
+  }
+  ```
+            
+      at module evaluation (C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\.next\server\chunks\ssr\[root-of-the-server]__0ykztow._.js:62:5513)
+      at instantiateModule (C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\.next\server\chunks\ssr\[turbopack]_runtime.js:853:9)
+      at getOrInstantiateModuleFromParent (C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\.next\server\chunks\ssr\[turbopack]_runtime.js:877:12)
+      at Context.esmImport [as i] (C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\.next\server\chunks\ssr\[turbopack]_runtime.js:281:20)
+      at module evaluation (C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\.next\server\chunks\ssr\[root-of-the-server]__122wej~._.js:1:10480)
+      at instantiateModule (C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\.next\server\chunks\ssr\[turbopack]_runtime.js:853:9)
+      at getOrInstantiateModuleFromParent (C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\.next\server\chunks\ssr\[turbopack]_runtime.js:877:12)
+      at Context.esmImport [as i] (C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\.next\server\chunks\ssr\[turbopack]_runtime.js:281:20)
+      at module evaluation (C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\.next\server\chunks\ssr\[root-of-the-server]__122wej~._.js:1:19559) {
+    clientVersion: '7.5.0',
+    errorCode: undefined,
+    retryable: undefined
+  }
+}
+
+> Build error occurred
+Error: Failed to collect page data for /performance
+    at ignore-listed frames {
+  type: 'Error'
+}

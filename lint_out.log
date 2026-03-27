@@ -1,0 +1,40 @@
+
+> pro-market-dashboard@0.1.0 lint
+> eslint
+
+
+C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\src\app\dashboard\page.tsx
+  10:9  warning  'prep' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  12:9  warning  'markets' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  13:9  warning  'sessions' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  14:9  warning  'catalysts' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  15:9  warning  'plan' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  16:9  warning  'steps' is assigned a value but never used      @typescript-eslint/no-unused-vars
+
+C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\src\app\dashboard\prep\page.tsx
+  3:29  warning  'SAMPLE_MARKETS' is defined but never used     @typescript-eslint/no-unused-vars
+  3:45  warning  'SAMPLE_DAILY_PREP' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\src\app\dashboard\sessions\page.tsx
+  3:16  warning  'CardHeader' is defined but never used  @typescript-eslint/no-unused-vars
+  3:28  warning  'CardTitle' is defined but never used   @typescript-eslint/no-unused-vars
+  8:10  warning  'Clock' is defined but never used       @typescript-eslint/no-unused-vars
+
+C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\src\app\layout.tsx
+  23:9  warning  Custom fonts not added in `pages/_document.js` will only load for a single page. This is discouraged. See: https://nextjs.org/docs/messages/no-page-custom-font  @next/next/no-page-custom-font
+  24:9  warning  Custom fonts not added in `pages/_document.js` will only load for a single page. This is discouraged. See: https://nextjs.org/docs/messages/no-page-custom-font  @next/next/no-page-custom-font
+
+C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\src\components\dashboard\DashboardWidgets.tsx
+  4:10  warning  'Badge' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\src\components\dashboard\SessionAnalysis.tsx
+  7:10  warning  'Clock' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\src\components\layout\RightPanel.tsx
+  6:10  warning  'Badge' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lyvel\.gemini\antigravity\scratch\pro-market-dashboard\src\components\layout\Sidebar.tsx
+  36:63  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 17 problems (1 error, 16 warnings)
+

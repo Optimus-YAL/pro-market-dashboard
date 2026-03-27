@@ -1,7 +1,7 @@
 'use client';
 
-import { Card, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { SAMPLE_MARKETS } from '@/lib/constants';
 import { TrendingUp, TrendingDown, Minus, Globe } from 'lucide-react';
 

@@ -1,0 +1,36 @@
+﻿src/app/dashboard/journal/page.tsx(4,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/app/dashboard/journal/page.tsx(4,23): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPnL'.
+src/app/dashboard/page.tsx(5,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/app/dashboard/prep/page.tsx(4,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/app/dashboard/sessions/page.tsx(5,42): error TS1261: Already included file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/FormElements.tsx' differs from file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/formelements.tsx' only in casing.
+  The file is in the program because:
+    Imported via '@/components/ui/FormElements' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/app/dashboard/sessions/page.tsx'
+    Matched by include pattern '**/*.tsx' in 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/tsconfig.json'
+src/app/dashboard/sessions/page.tsx(7,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/components/dashboard/CatalystPanel.tsx(25,36): error TS2322: Type '{ children: string; variant: string; dot: true; pulse: true; }' is not assignable to type 'IntrinsicAttributes & Omit<ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement> & { ...; } & VariantProps<...>, "variant"> & { ...; }'.
+  Property 'dot' does not exist on type 'IntrinsicAttributes & Omit<ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement> & { ...; } & VariantProps<...>, "variant"> & { ...; }'.
+src/components/dashboard/DailyOverview.tsx(6,38): error TS1261: Already included file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/BiasScore.tsx' differs from file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/biasscore.tsx' only in casing.
+  The file is in the program because:
+    Imported via '@/components/ui/BiasScore' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/DailyOverview.tsx'
+    Imported via '@/components/ui/BiasScore' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/layout/RightPanel.tsx'
+    Matched by include pattern '**/*.tsx' in 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/tsconfig.json'
+src/components/dashboard/DailyOverview.tsx(7,33): error TS1261: Already included file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/StatusIndicator.tsx' differs from file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/statusindicator.tsx' only in casing.
+  The file is in the program because:
+    Imported via '@/components/ui/StatusIndicator' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/DailyOverview.tsx'
+    Imported via '@/components/ui/StatusIndicator' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/layout/RightPanel.tsx'
+    Matched by include pattern '**/*.tsx' in 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/tsconfig.json'
+src/components/dashboard/DailyOverview.tsx(27,85): error TS2322: Type '{ children: string; variant: string; dot: true; }' is not assignable to type 'IntrinsicAttributes & Omit<ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement> & { ...; } & VariantProps<...>, "variant"> & { ...; }'.
+  Property 'dot' does not exist on type 'IntrinsicAttributes & Omit<ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement> & { ...; } & VariantProps<...>, "variant"> & { ...; }'.
+src/components/dashboard/DailyOverview.tsx(40,13): error TS2322: Type '{ children: string; variant: string; dot: true; }' is not assignable to type 'IntrinsicAttributes & Omit<ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement> & { ...; } & VariantProps<...>, "variant"> & { ...; }'.
+  Property 'dot' does not exist on type 'IntrinsicAttributes & Omit<ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement> & { ...; } & VariantProps<...>, "variant"> & { ...; }'.
+src/components/dashboard/DashboardWidgets.tsx(5,33): error TS1261: Already included file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/ProgressTracker.tsx' differs from file name 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/ui/progresstracker.tsx' only in casing.
+  The file is in the program because:
+    Imported via '@/components/ui/ProgressTracker' from file 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/src/components/dashboard/DashboardWidgets.tsx'
+    Matched by include pattern '**/*.tsx' in 'C:/Users/lyvel/.gemini/antigravity/scratch/pro-market-dashboard/tsconfig.json'
+src/components/dashboard/KeyLevelMap.tsx(5,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/components/dashboard/SessionAnalysis.tsx(6,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/components/dashboard/SessionAnalysis.tsx(47,58): error TS2322: Type '{ children: string; variant: string; dot: true; }' is not assignable to type 'IntrinsicAttributes & Omit<ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement> & { ...; } & VariantProps<...>, "variant"> & { ...; }'.
+  Property 'dot' does not exist on type 'IntrinsicAttributes & Omit<ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement> & { ...; } & VariantProps<...>, "variant"> & { ...; }'.
+src/components/dashboard/SupplyDemandZones.tsx(6,10): error TS2305: Module '"@/lib/utils"' has no exported member 'formatPrice'.
+src/components/ui/badge.tsx(40,39): error TS2322: Type 'string | null' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | "ghost" | "link" | null | undefined'.
+  Type 'string' is not assignable to type '"default" | "secondary" | "destructive" | "outline" | "ghost" | "link" | null | undefined'.

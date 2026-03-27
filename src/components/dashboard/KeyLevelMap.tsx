@@ -1,6 +1,7 @@
+// cSpell:ignore globex vwap
 'use client';
 
-import { Card, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { SAMPLE_KEY_LEVELS } from '@/lib/constants';
 import { formatPrice } from '@/lib/utils';
 import { MapPin } from 'lucide-react';
@@ -64,7 +65,7 @@ export function KeyLevelMap() {
                   >
                     <span className="text-xs text-text-muted">{level.label}</span>
                     <span className={`text-sm font-semibold font-tabular ${level.color}`}>
-                      {formatPrice(value)}
+                      {formatPrice(value || 0)}
                     </span>
                   </div>
                 );
