@@ -1,16 +1,17 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
+import { getSession } from '@/lib/auth/session'
 
 export async function addJournalEntry(formData: FormData) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const session = await getSession()
 
-  if (!user) {
+  if (!session) {
     throw new Error('Unauthorized')
   }
+
+  const user = { id: session.userId }
 
   const asset = formData.get('asset') as string
   const setup = formData.get('setup') as string

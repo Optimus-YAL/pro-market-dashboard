@@ -1,7 +1,24 @@
-import { TrendingUp, Mail, Lock, HelpCircle, Sparkles } from 'lucide-react';
-import { login, signup } from './actions';
+'use client';
 
-export default function LoginPage({ searchParams }: { searchParams: { error?: string } }) {
+import { useActionState, useState } from 'react';
+import { TrendingUp, Mail, Lock, HelpCircle, Sparkles, ArrowLeft, Loader2 } from 'lucide-react';
+import { loginAction, signupAction, magicLinkAction } from './actions';
+import type { AuthFormState } from '@/lib/auth/validation';
+
+type AuthMode = 'login' | 'signup';
+
+export default function LoginPage() {
+  const [mode, setMode] = useState<AuthMode>('login');
+
+  // Form states via useActionState
+  const [loginState, loginFormAction, loginPending] = useActionState<AuthFormState, FormData>(loginAction, undefined);
+  const [signupState, signupFormAction, signupPending] = useActionState<AuthFormState, FormData>(signupAction, undefined);
+  const [magicState, magicFormAction, magicPending] = useActionState<AuthFormState, FormData>(magicLinkAction, undefined);
+
+  const isLogin = mode === 'login';
+  const formState = isLogin ? loginState : signupState;
+  const isPending = isLogin ? loginPending : signupPending;
+
   return (
     <div className="flex h-screen overflow-hidden bg-surface-primary">
       {/* Left Panel — Editorial & Brand Narrative */}
@@ -57,20 +74,38 @@ export default function LoginPage({ searchParams }: { searchParams: { error?: st
             <span className="text-sm font-black uppercase tracking-tight">Pro Market</span>
           </div>
 
-          {/* Login Module */}
+          {/* Auth Module */}
           <div className="space-y-8">
             <div className="text-center lg:text-left">
-              <h2 className="text-2xl font-bold tracking-tight text-text-primary mb-2">Welcome Back</h2>
-              <p className="text-text-muted text-sm">Sign in to access your dashboard.</p>
+              {!isLogin && (
+                <button
+                  type="button"
+                  onClick={() => setMode('login')}
+                  className="flex items-center gap-1 text-xs text-text-muted hover:text-text-primary transition-colors mb-4"
+                >
+                  <ArrowLeft className="w-3 h-3" />
+                  Back to Sign In
+                </button>
+              )}
+              <h2 className="text-2xl font-bold tracking-tight text-text-primary mb-2">
+                {isLogin ? 'Welcome Back' : 'Create Account'}
+              </h2>
+              <p className="text-text-muted text-sm">
+                {isLogin
+                  ? 'Sign in to access your dashboard.'
+                  : 'Set up your trading workspace.'}
+              </p>
             </div>
 
-            {searchParams?.error && (
-              <div className="p-4 bg-error/10 border border-error/20 text-error text-sm rounded-sm font-medium">
-                {searchParams.error}
+            {/* Error / Success Messages */}
+            {formState?.message && !formState?.success && (
+              <div className="p-4 bg-error/10 border border-error/20 text-error text-sm rounded-sm font-medium animate-fade-in-up">
+                {formState.message}
               </div>
             )}
 
-            <form className="space-y-5">
+            {/* ─── Login / Signup Form ─── */}
+            <form className="space-y-5" key={mode}>
               <div className="space-y-2">
                 <label className="block text-[10px] font-bold uppercase tracking-widest text-text-muted ml-1" htmlFor="email">
                   Work Email
@@ -86,16 +121,21 @@ export default function LoginPage({ searchParams }: { searchParams: { error?: st
                     className="w-full bg-surface-elevated border-none rounded-sm py-3.5 pl-12 pr-4 text-sm text-text-primary placeholder:text-text-muted focus:ring-1 focus:ring-primary transition-all outline-none"
                   />
                 </div>
+                {formState?.errors?.email && (
+                  <p className="text-xs text-error ml-1">{formState.errors.email[0]}</p>
+                )}
               </div>
 
               <div className="space-y-2">
                 <div className="flex justify-between items-center ml-1">
                   <label className="block text-[10px] font-bold uppercase tracking-widest text-text-muted" htmlFor="password">
-                    Security Key
+                    {isLogin ? 'Security Key' : 'Password'}
                   </label>
-                  <button type="button" className="text-xs text-primary hover:underline">
-                    Forgot?
-                  </button>
+                  {isLogin && (
+                    <button type="button" className="text-xs text-primary hover:underline">
+                      Forgot?
+                    </button>
+                  )}
                 </div>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-text-muted/50" />
@@ -104,25 +144,79 @@ export default function LoginPage({ searchParams }: { searchParams: { error?: st
                     name="password"
                     type="password"
                     required
+                    minLength={isLogin ? undefined : 8}
                     placeholder="••••••••••••"
                     className="w-full bg-surface-elevated border-none rounded-sm py-3.5 pl-12 pr-4 text-sm text-text-primary placeholder:text-text-muted focus:ring-1 focus:ring-primary transition-all outline-none"
                   />
                 </div>
+                {formState?.errors?.password && (
+                  <div className="ml-1 space-y-1">
+                    {formState.errors.password.map((err) => (
+                      <p key={err} className="text-xs text-error">{err}</p>
+                    ))}
+                  </div>
+                )}
               </div>
 
+              {/* Confirm Password — Signup only */}
+              {!isLogin && (
+                <div className="space-y-2 animate-fade-in-up">
+                  <label className="block text-[10px] font-bold uppercase tracking-widest text-text-muted ml-1" htmlFor="confirmPassword">
+                    Confirm Password
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-text-muted/50" />
+                    <input
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      type="password"
+                      required
+                      placeholder="••••••••••••"
+                      className="w-full bg-surface-elevated border-none rounded-sm py-3.5 pl-12 pr-4 text-sm text-text-primary placeholder:text-text-muted focus:ring-1 focus:ring-primary transition-all outline-none"
+                    />
+                  </div>
+                  {formState?.errors?.confirmPassword && (
+                    <p className="text-xs text-error ml-1">{formState.errors.confirmPassword[0]}</p>
+                  )}
+                </div>
+              )}
+
+              {/* Action Buttons */}
               <div className="flex gap-4">
-                <button
-                  formAction={login}
-                  className="w-full flex items-center justify-center py-4 bg-gradient-to-r from-primary to-orange-600 text-white font-bold rounded-sm tracking-tight hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-primary/20"
-                >
-                  Sign In
-                </button>
-                <button
-                  formAction={signup}
-                  className="w-full flex items-center justify-center py-4 bg-surface-elevated/50 text-text-primary font-bold rounded-sm tracking-tight hover:bg-surface-elevated active:scale-[0.98] transition-all border border-white/[0.04]"
-                >
-                  Create Account
-                </button>
+                {isLogin ? (
+                  <>
+                    <button
+                      formAction={loginFormAction}
+                      disabled={isPending}
+                      className="w-full flex items-center justify-center py-4 bg-gradient-to-r from-primary to-orange-600 text-white font-bold rounded-sm tracking-tight hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {loginPending ? (
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                      ) : (
+                        'Sign In'
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setMode('signup')}
+                      className="w-full flex items-center justify-center py-4 bg-surface-elevated/50 text-text-primary font-bold rounded-sm tracking-tight hover:bg-surface-elevated active:scale-[0.98] transition-all border border-white/[0.04]"
+                    >
+                      Create Account
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    formAction={signupFormAction}
+                    disabled={isPending}
+                    className="w-full flex items-center justify-center py-4 bg-gradient-to-r from-primary to-orange-600 text-white font-bold rounded-sm tracking-tight hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {signupPending ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      'Create Account'
+                    )}
+                  </button>
+                )}
               </div>
             </form>
 
@@ -137,13 +231,46 @@ export default function LoginPage({ searchParams }: { searchParams: { error?: st
             </div>
 
             {/* Magic Link */}
-            <button
-              type="button"
-              className="w-full py-3.5 bg-surface-card text-text-primary text-sm font-medium rounded-sm border border-white/[0.03] hover:bg-surface-elevated transition-colors flex items-center justify-center gap-2 active:scale-[0.99]"
-            >
-              <Sparkles className="w-4 h-4" />
-              Send Magic Link
-            </button>
+            <form>
+              <input type="hidden" name="magicLinkEmail" id="magicLinkEmailHidden" />
+              <button
+                formAction={magicFormAction}
+                disabled={magicPending}
+                type="submit"
+                onClick={(e) => {
+                  // Copy the email from the main form into the magic link form
+                  const emailInput = document.getElementById('email') as HTMLInputElement;
+                  const hidden = document.getElementById('magicLinkEmailHidden') as HTMLInputElement;
+                  if (emailInput && hidden) {
+                    hidden.value = emailInput.value;
+                  }
+                  if (!emailInput?.value) {
+                    e.preventDefault();
+                    emailInput?.focus();
+                  }
+                }}
+                className="w-full py-3.5 bg-surface-card text-text-primary text-sm font-medium rounded-sm border border-white/[0.03] hover:bg-surface-elevated transition-colors flex items-center justify-center gap-2 active:scale-[0.99] disabled:opacity-50"
+              >
+                {magicPending ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Sparkles className="w-4 h-4" />
+                )}
+                {magicPending ? 'Sending...' : 'Send Magic Link'}
+              </button>
+            </form>
+
+            {/* Magic Link Success */}
+            {magicState?.success && (
+              <div className="p-4 bg-accent/10 border border-accent/20 text-accent text-sm rounded-sm font-medium animate-fade-in-up">
+                ✓ {magicState.message}
+              </div>
+            )}
+            {magicState?.message && !magicState?.success && (
+              <div className="p-4 bg-error/10 border border-error/20 text-error text-sm rounded-sm font-medium animate-fade-in-up">
+                {magicState.message}
+              </div>
+            )}
           </div>
 
           {/* Footer Meta */}

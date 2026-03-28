@@ -13,12 +13,14 @@ datasource db {
 
 // ─── User ───────────────────────────────────────────────────
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  name          String?
-  passwordHash  String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id              String    @id @default(cuid())
+  email           String    @unique
+  name            String?
+  passwordHash    String?
+  magicLinkToken  String?
+  magicLinkExpiry DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   settings       Settings?
   dailyPreps     DailyPrep[]

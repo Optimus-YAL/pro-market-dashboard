@@ -1,14 +1,14 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, Filter, SortDesc, Star } from "lucide-react";
-import { createClient } from "@/utils/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { formatPnL } from "@/lib/utils";
 import { EquityChart, ChartData } from "@/components/dashboard/EquityChart";
+import { getSession } from "@/lib/auth/session";
 
 export default async function PerformanceTrackerPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const session = await getSession();
+  const user = session ? { id: session.userId } : null;
 
   let totalPnL = 0;
   let wins = 0;

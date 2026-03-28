@@ -1,18 +1,16 @@
 import { Plus, TrendingUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { createClient } from "@/utils/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { addJournalEntry } from "@/app/actions/journal";
 import { formatPnL } from "@/lib/utils";
+import { getSession } from "@/lib/auth/session";
 
 import { JournalEntry } from "@prisma/client";
 
 export default async function TradingJournalPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const session = await getSession();
+  const user = session ? { id: session.userId } : null;
 
   let entries: JournalEntry[] = [];
   if (user) {
