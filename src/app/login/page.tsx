@@ -29,7 +29,7 @@ export default function LoginPage() {
             <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
               <span className="material-symbols-outlined text-white text-[18px]">account_balance</span>
             </div>
-            <span className="text-xl font-black text-primary tracking-tighter uppercase">Obsidian Ledger</span>
+            <span className="text-xl font-black text-primary tracking-tighter uppercase">Pro Market</span>
           </div>
           <h1 className="text-6xl font-extrabold tracking-tighter leading-tight text-text-primary max-w-xl mb-6">
             Trade with structure. <br />Execute with discipline.
@@ -70,7 +70,7 @@ export default function LoginPage() {
             <div className="w-7 h-7 bg-primary rounded flex items-center justify-center">
               <span className="material-symbols-outlined text-white text-[14px]">account_balance</span>
             </div>
-            <span className="text-sm font-black uppercase tracking-tight">Obsidian Ledger</span>
+            <span className="text-sm font-black uppercase tracking-tight">Pro Market</span>
           </div>
 
           {/* Auth Module */}
@@ -247,7 +247,7 @@ export default function LoginPage() {
             )}
 
               <p className="text-center text-sm text-text-muted mt-8">
-                New to Obsidian?{' '}
+                New to Pro Market?{' '}
                 <button
                   type="button"
                   onClick={() => setMode('signup')}
@@ -277,7 +277,7 @@ export default function LoginPage() {
 
         {/* Global Footer Copyright (Left side overlay but built into flex logic ideally, since left side has full height we can place it here with absolute) */}
         <div className="absolute bottom-8 left-8 hidden lg:block text-[10px] text-text-muted uppercase tracking-widest font-bold z-50">
-          © 2024 OBSIDIAN LEDGER INSTITUTIONAL. PRECISION MILLED DATA.
+          © 2026 PRO MARKET INSTITUTIONAL. PRECISION MILLED DATA.
         </div>
       </section>
 
