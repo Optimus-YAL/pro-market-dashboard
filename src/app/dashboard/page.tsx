@@ -223,6 +223,18 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
+          {/* ROW 4: Tactical Notes */}
+          <div className="bg-surface-secondary p-6 rounded-lg border border-white/[0.04]">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-headline text-sm font-bold text-text-muted uppercase tracking-widest">Tactical Notes</h3>
+              <span className="material-symbols-outlined text-text-muted text-lg">edit_note</span>
+            </div>
+            <textarea
+              className="w-full h-32 bg-background/50 border border-white/[0.06] rounded-sm p-4 text-xs font-mono text-text-primary focus:outline-none focus:border-accent/40 resize-none placeholder:text-text-muted"
+              placeholder="Enter session specific notes, rapid thoughts, or contextual observations here..."
+              defaultValue="[08:45] Pre-market volume unusually light. Waiting for CPI print at 08:30.\n[09:15] NQ pushing HOD. ES lagging. Divergence noted.\n[09:35] First interaction with VWAP. Buyers stepping in on Tape."
+            />
+          </div>
         </div>
 
         {/* ──── RIGHT UTILITY PANEL (col-span-3) ──── */}
@@ -272,12 +284,13 @@ export default function DashboardPage() {
 
           {/* Execution Presets */}
           <div className="bg-surface-card p-6 rounded-lg border border-white/[0.04]">
-            <h3 className="font-headline text-xs font-bold text-text-muted uppercase tracking-widest mb-5">Active Presets</h3>
+            <h3 className="font-headline text-xs font-bold text-text-muted uppercase tracking-widest mb-5">Execution Presets</h3>
             <div className="flex flex-col gap-3">
               {[
-                { name: 'Scaling Long', desc: 'Risk 0.5% | 3 Profit Targets', icon: 'rocket_launch', active: true },
-                { name: 'Standard Breakout', desc: 'Risk 1.0% | Fixed R:R 1:2', icon: 'bolt', active: false },
-                { name: 'Mean Reversion', desc: 'Contrarian | ATR Based Stop', icon: 'settings_backup_restore', active: false },
+                { name: 'Standard', desc: 'Risk 1.0% | Risk/Reward 1:2', icon: 'check_circle', active: true },
+                { name: 'Aggressive', desc: 'Risk 2.0% | Scaling In/Out', icon: 'local_fire_department', active: false },
+                { name: 'Hedge', desc: 'Risk 0.25% | Counter-Trend', icon: 'shield', active: false },
+                { name: 'Flash-In', desc: 'Market Order | Quick Scalp', icon: 'flash_on', active: false },
               ].map(({ name, desc, icon, active }) => (
                 <div key={name} className={`p-4 rounded-sm cursor-pointer transition-colors ${active ? 'bg-surface-elevated/60 border-l-2 border-accent' : 'bg-surface-elevated/20 hover:bg-surface-elevated/40 border-l-2 border-transparent'}`}>
                   <div className="flex justify-between items-center mb-1">

@@ -114,9 +114,9 @@ export const SAMPLE_TRADE_PLAN: TradePlan = {
 
 // ─── Sample: Journal ────────────────────────────────────────
 export const SAMPLE_JOURNAL_ENTRIES: JournalEntry[] = [
-  { id: '1', date: '2026-03-26', setup: 'Demand Zone Bounce', direction: 'long', entry: 5265.25, exit: 5283.50, stop: 5258.00, target: 5285.00, pnl: 912.50, notes: 'Clean entry at demand. Exited near PDH.', lesson: 'Trust the level — don\'t second-guess.' },
-  { id: '2', date: '2026-03-26', setup: 'Supply Rejection', direction: 'short', entry: 5293.00, exit: 5288.50, stop: 5300.00, target: 5275.00, pnl: 225.00, notes: 'Partial fill. Exited early on bounce.', lesson: 'Let runners run — scale out properly.' },
-  { id: '3', date: '2026-03-25', setup: 'VWAP Reclaim', direction: 'long', entry: 5248.00, exit: 5240.00, stop: 5242.00, target: 5265.00, pnl: -400.00, notes: 'Stopped out. VWAP reclaim failed.', lesson: 'Avoid fighting the trend after failed reclaim.' },
+  { id: '1', date: '2026-03-26 14:02', setup: 'Demand Zone Bounce', direction: 'long', entry: 5265.25, exit: 5283.50, stop: 5258.00, target: 5285.00, pnl: 912.50, notes: 'Clean entry at demand. Exited near PDH.', lesson: 'Trust the level — don\'t second-guess.', pair: 'ESZ3', marketType: 'S&P 500' },
+  { id: '2', date: '2026-03-26 09:45', setup: 'Supply Rejection', direction: 'short', entry: 5293.00, exit: 5288.50, stop: 5300.00, target: 5275.00, pnl: 225.00, notes: 'Partial fill. Exited early on bounce.', lesson: 'Let runners run — scale out properly.', pair: 'NQZ3', marketType: 'Nasdaq' },
+  { id: '3', date: '2026-03-25 11:30', setup: 'VWAP Reclaim', direction: 'long', entry: 5248.00, exit: 5240.00, stop: 5242.00, target: 5265.00, pnl: -400.00, notes: 'Stopped out. VWAP reclaim failed.', lesson: 'Avoid fighting the trend after failed reclaim.', pair: 'ESZ3', marketType: 'S&P 500' },
 ];
 
 // ─── Sample: Review ─────────────────────────────────────────

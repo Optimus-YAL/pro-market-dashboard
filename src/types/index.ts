@@ -114,6 +114,8 @@ export interface JournalEntry {
   notes?: string;
   screenshot?: string;
   lesson?: string;
+  pair?: string;
+  marketType?: string;
 }
 
 export interface ReviewEntry {

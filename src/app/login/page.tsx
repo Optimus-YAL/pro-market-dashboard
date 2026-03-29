@@ -88,11 +88,11 @@ export default function LoginPage() {
                 </button>
               )}
               <h2 className="text-2xl font-bold tracking-tight text-text-primary mb-2">
-                {isLogin ? 'Welcome Back' : 'Create Account'}
+                {isLogin ? 'Institutional Access' : 'Create Account'}
               </h2>
               <p className="text-text-muted text-sm">
                 {isLogin
-                  ? 'Sign in to access your dashboard.'
+                  ? 'Enter your credentials to access the trading floor.'
                   : 'Set up your trading workspace.'}
               </p>
             </div>
@@ -181,43 +181,20 @@ export default function LoginPage() {
                 </div>
               )}
 
-              {/* Action Buttons */}
-              <div className="flex gap-4">
-                {isLogin ? (
-                  <>
-                    <button
-                      formAction={loginFormAction}
-                      disabled={isPending}
-                      className="w-full flex items-center justify-center py-4 bg-gradient-to-r from-primary to-orange-600 text-white font-bold rounded-sm tracking-tight hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {loginPending ? (
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                      ) : (
-                        'Sign In'
-                      )}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setMode('signup')}
-                      className="w-full flex items-center justify-center py-4 bg-surface-elevated/50 text-text-primary font-bold rounded-sm tracking-tight hover:bg-surface-elevated active:scale-[0.98] transition-all border border-white/[0.04]"
-                    >
-                      Create Account
-                    </button>
-                  </>
+              {/* Action Button */}
+              <button
+                formAction={isLogin ? loginFormAction : signupFormAction}
+                disabled={isPending}
+                className="w-full flex items-center justify-center py-4 bg-primary/90 hover:bg-primary text-white font-bold rounded-sm tracking-tight active:scale-[0.98] transition-all shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isPending ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : isLogin ? (
+                  'Sign In'
                 ) : (
-                  <button
-                    formAction={signupFormAction}
-                    disabled={isPending}
-                    className="w-full flex items-center justify-center py-4 bg-gradient-to-r from-primary to-orange-600 text-white font-bold rounded-sm tracking-tight hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {signupPending ? (
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                    ) : (
-                      'Create Account'
-                    )}
-                  </button>
+                  'Create Account'
                 )}
-              </div>
+              </button>
             </form>
 
             {/* Divider */}
@@ -270,6 +247,20 @@ export default function LoginPage() {
               <div className="p-4 bg-error/10 border border-error/20 text-error text-sm rounded-sm font-medium animate-fade-in-up">
                 {magicState.message}
               </div>
+            )}
+
+            {/* Create Account Link */}
+            {isLogin && (
+              <p className="text-center text-sm text-text-muted">
+                New to the platform?{' '}
+                <button
+                  type="button"
+                  onClick={() => setMode('signup')}
+                  className="text-text-primary font-bold hover:text-accent transition-colors"
+                >
+                  Create Account
+                </button>
+              </p>
             )}
           </div>
 

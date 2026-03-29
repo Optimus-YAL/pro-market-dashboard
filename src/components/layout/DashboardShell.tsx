@@ -37,11 +37,18 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         </div>
         <div className="flex items-center gap-8">
           <div className="hidden sm:flex items-center gap-4">
-            <a href="#" className="text-[10px] uppercase tracking-widest text-text-muted hover:text-accent transition-opacity">API Docs</a>
-            <a href="#" className="text-[10px] uppercase tracking-widest text-text-muted hover:text-accent transition-opacity">Support</a>
-            <a href="#" className="text-[10px] uppercase tracking-widest text-text-muted hover:text-accent transition-opacity">Privacy</a>
+            <span className="text-[10px] uppercase tracking-widest text-text-muted flex items-center gap-1.5">
+              Bias: <span className="text-accent font-bold">Bullish</span>
+            </span>
+            <span className="text-[10px] uppercase tracking-widest text-text-muted flex items-center gap-1.5 border-l border-white/[0.06] pl-4">
+              Trade Status: <span className="text-warning font-bold flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-warning animate-pulse" />Monitoring</span>
+            </span>
           </div>
-          <span className="text-[10px] uppercase tracking-widest text-text-primary font-bold font-mono">
+          <div className="hidden md:flex items-center gap-4 border-l border-white/[0.06] pl-4">
+            <a href="#" className="text-[10px] uppercase tracking-widest text-text-muted hover:text-accent transition-opacity">Docs</a>
+            <a href="#" className="text-[10px] uppercase tracking-widest text-text-muted hover:text-accent transition-opacity">Support</a>
+          </div>
+          <span className="text-[10px] uppercase tracking-widest text-text-primary font-bold font-mono border-l border-white/[0.06] pl-4">
             NY: {nyClock}
           </span>
         </div>
