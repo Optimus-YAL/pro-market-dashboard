@@ -44,7 +44,7 @@ export const useTerminalStore = create<TerminalState>()(
       setTacticalNotes: (notes) => set({ tacticalNotes: notes }),
     }),
     {
-      name: 'obsidian-terminal-storage', // key in localStorage
+      name: 'pro-market-terminal-storage', // key in localStorage
       storage: createJSONStorage(() => localStorage), 
     }
   )
