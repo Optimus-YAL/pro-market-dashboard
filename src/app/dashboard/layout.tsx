@@ -1,7 +1,13 @@
-'use client';
+import { redirect } from 'next/navigation';
+import { getSession } from '@/lib/auth/session';
+import { DashboardShellWrapper } from '@/components/layout/DashboardShellWrapper';
 
-import { DashboardShell } from '@/components/layout/DashboardShell';
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const session = await getSession();
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return <DashboardShell>{children}</DashboardShell>;
+  if (!session) {
+    redirect('/login');
+  }
+
+  return <DashboardShellWrapper>{children}</DashboardShellWrapper>;
 }

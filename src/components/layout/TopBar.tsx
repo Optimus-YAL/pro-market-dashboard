@@ -13,36 +13,24 @@ export function TopBar() {
   }, []);
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 h-12 bg-surface-primary flex justify-between items-center px-6 border-b border-white/[0.04]">
+    <header className="fixed top-0 right-0 left-0 z-50 h-12 bg-surface-primary flex justify-between items-center px-6">
       <div className="flex items-center gap-8">
-        <span className="text-lg font-black text-accent tracking-tighter font-headline">Pro Market</span>
+        <span className="text-lg font-black text-text-primary tracking-tighter font-headline">Pro Market</span>
         <nav className="hidden md:flex gap-6 items-center">
-          <a href="/dashboard" className="text-accent border-b-2 border-accent pb-1 text-[0.6875rem] font-bold uppercase tracking-[0.05em]">Execute</a>
-          <a href="/dashboard/review" className="text-text-secondary hover:text-text-primary text-[0.6875rem] font-bold uppercase tracking-[0.05em] transition-colors">Watchlist</a>
+          <a href="/dashboard" className="font-headline font-semibold tracking-tight text-accent border-b-2 border-accent pb-1 hover:text-text-primary transition-colors">Execute</a>
+          <a href="/dashboard/review" className="font-headline font-semibold tracking-tight text-text-secondary hover:text-text-primary transition-colors">Watchlist</a>
         </nav>
-        <div className="hidden lg:flex items-center">
-          <div className="h-4 w-px bg-white/[0.06] mx-4" />
-          <span className="text-text-muted font-mono tracking-widest uppercase text-[10px]">Market Clock: {clock} UTC</span>
-        </div>
       </div>
 
-      <div className="flex items-center gap-3">
-        {/* Search */}
-        <div className="hidden sm:flex items-center bg-surface-card rounded-sm px-3 py-1.5 gap-2">
-          <span className="material-symbols-outlined text-text-muted text-sm">search</span>
-          <input type="text" placeholder="Search Symbols..." className="bg-transparent text-xs text-text-primary placeholder:text-text-muted outline-none w-32" />
+      <div className="flex items-center gap-4">
+        <div className="hidden sm:flex items-center bg-surface-secondary px-3 py-1 rounded-sm">
+          <span className="material-symbols-outlined text-xs text-text-secondary mr-2">search</span>
+          <input type="text" placeholder="Search Symbols..." className="bg-transparent border-none text-xs text-text-primary focus:ring-0 w-48 placeholder:text-text-secondary outline-none" />
         </div>
-
-        <div className="flex items-center gap-1 ml-2">
-          <button className="p-1.5 text-text-muted hover:text-text-primary hover:bg-surface-card rounded transition-colors">
-            <span className="material-symbols-outlined text-xl">notifications</span>
-          </button>
-          <button className="p-1.5 text-text-muted hover:text-text-primary hover:bg-surface-card rounded transition-colors">
-            <span className="material-symbols-outlined text-xl">settings</span>
-          </button>
-          <button className="p-1.5 text-accent hover:text-text-primary hover:bg-surface-card rounded transition-colors">
-            <span className="material-symbols-outlined text-xl">account_circle</span>
-          </button>
+        <div className="flex items-center gap-3">
+          <span className="material-symbols-outlined text-text-secondary text-xl cursor-pointer hover:text-text-primary transition-colors">notifications</span>
+          <span className="material-symbols-outlined text-text-secondary text-xl cursor-pointer hover:text-text-primary transition-colors">settings</span>
+          <span className="material-symbols-outlined text-accent text-xl cursor-pointer hover:text-text-primary transition-colors">account_circle</span>
         </div>
       </div>
     </header>
