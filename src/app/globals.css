@@ -42,6 +42,12 @@
 
   --color-border-primary: #3d495a;
 
+  /* Design System Reference Colors */
+  --color-ds-primary: #3B82F6;
+  --color-ds-secondary: #22C55E;
+  --color-ds-tertiary: #EF4444;
+  --color-ds-neutral: #121212;
+
   --color-bullish: #4ade80;
   --color-bullish-bg: rgba(74, 222, 128, 0.08);
   --color-error: #ee7d77;

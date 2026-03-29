@@ -50,7 +50,7 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="fixed left-0 top-12 bottom-0 z-40 flex flex-col py-4 bg-surface-secondary w-16 hover:w-64 transition-all duration-300 group shadow-[4px_0_24px_rgba(184,195,255,0.04)]">
+    <aside className="peer fixed left-0 top-12 bottom-8 z-40 flex flex-col py-4 bg-surface-secondary w-16 hover:w-64 transition-all duration-300 group shadow-[4px_0_24px_rgba(184,195,255,0.04)]">
       {/* ── Main Navigation ── */}
       <div className="flex flex-col gap-1 px-3">
         {MAIN_NAV.map(renderLink)}
@@ -67,6 +67,14 @@ export function Sidebar() {
       {/* ── Tools Navigation ── */}
       <div className="flex flex-col gap-1 px-3">
         {TOOLS_NAV.map(renderLink)}
+      </div>
+
+      {/* ── Action Button ── */}
+      <div className="mt-auto px-2 pb-4 pt-4">
+        <button className="w-full h-10 bg-[#1e40af] hover:bg-[#1d4ed8] text-white font-black text-[10px] uppercase rounded-sm transition-all shadow-[0_0_15px_rgba(30,64,175,0.4)] hover:shadow-[0_0_20px_rgba(30,64,175,0.6)] active:scale-95 flex items-center justify-center overflow-hidden whitespace-nowrap relative">
+          <span className="material-symbols-outlined text-[18px] group-hover:opacity-0 transition-opacity absolute">add</span>
+          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 tracking-widest">NEW ORDER</span>
+        </button>
       </div>
 
       {/* ── Bottom System Badge ── */}

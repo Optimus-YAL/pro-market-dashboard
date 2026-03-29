@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState, useState } from 'react';
-import { TrendingUp, Mail, Lock, HelpCircle, Sparkles, ArrowLeft, Loader2 } from 'lucide-react';
+import { TrendingUp, Mail, Lock, HelpCircle, ArrowLeft, Loader2 } from 'lucide-react';
 import { loginAction, signupAction, magicLinkAction } from './actions';
 import type { AuthFormState } from '@/lib/auth/validation';
 
@@ -27,16 +27,15 @@ export default function LoginPage() {
         <div className="z-10">
           <div className="flex items-center gap-2 mb-12">
             <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
-              <TrendingUp className="w-4 h-4 text-white" />
+              <span className="material-symbols-outlined text-white text-[18px]">account_balance</span>
             </div>
-            <span className="text-xl font-black text-primary tracking-tighter">Pro Market</span>
+            <span className="text-xl font-black text-primary tracking-tighter uppercase">Obsidian Ledger</span>
           </div>
           <h1 className="text-6xl font-extrabold tracking-tighter leading-tight text-text-primary max-w-xl mb-6">
             Trade with structure. <br />Execute with discipline.
           </h1>
           <p className="text-text-secondary text-lg max-w-md leading-relaxed">
-            Access institutional-grade liquidity, advanced order routing, and real-time
-            execution analytics within a single, unified workspace.
+            Access institutional-grade liquidity and precision-milled market data. Designed for the high-frequency professional who demands zero latency and absolute clarity.
           </p>
         </div>
 
@@ -69,9 +68,9 @@ export default function LoginPage() {
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-8 lg:hidden">
             <div className="w-7 h-7 bg-primary rounded flex items-center justify-center">
-              <TrendingUp className="w-3.5 h-3.5 text-white" />
+              <span className="material-symbols-outlined text-white text-[14px]">account_balance</span>
             </div>
-            <span className="text-sm font-black uppercase tracking-tight">Pro Market</span>
+            <span className="text-sm font-black uppercase tracking-tight">Obsidian Ledger</span>
           </div>
 
           {/* Auth Module */}
@@ -88,11 +87,11 @@ export default function LoginPage() {
                 </button>
               )}
               <h2 className="text-2xl font-bold tracking-tight text-text-primary mb-2">
-                {isLogin ? 'Institutional Access' : 'Create Account'}
+                {isLogin ? 'Institutional Login' : 'Create Account'}
               </h2>
               <p className="text-text-muted text-sm">
                 {isLogin
-                  ? 'Enter your credentials to access the trading floor.'
+                  ? 'Enter your credentials to access the terminal.'
                   : 'Set up your trading workspace.'}
               </p>
             </div>
@@ -107,8 +106,8 @@ export default function LoginPage() {
             {/* ─── Login / Signup Form ─── */}
             <form className="space-y-5" key={mode}>
               <div className="space-y-2">
-                <label className="block text-[10px] font-bold uppercase tracking-widest text-text-muted ml-1" htmlFor="email">
-                  Work Email
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-text-muted mb-1" htmlFor="email">
+                  Email Address
                 </label>
                 <div className="relative">
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-text-muted/50" />
@@ -127,12 +126,12 @@ export default function LoginPage() {
               </div>
 
               <div className="space-y-2">
-                <div className="flex justify-between items-center ml-1">
+                <div className="flex justify-between items-center mb-1">
                   <label className="block text-[10px] font-bold uppercase tracking-widest text-text-muted" htmlFor="password">
-                    {isLogin ? 'Security Key' : 'Password'}
+                    Password
                   </label>
                   {isLogin && (
-                    <button type="button" className="text-xs text-primary hover:underline">
+                    <button type="button" className="text-[10px] uppercase font-bold text-text-muted hover:text-white transition-colors">
                       Forgot?
                     </button>
                   )}
@@ -185,12 +184,12 @@ export default function LoginPage() {
               <button
                 formAction={isLogin ? loginFormAction : signupFormAction}
                 disabled={isPending}
-                className="w-full flex items-center justify-center py-4 bg-primary/90 hover:bg-primary text-white font-bold rounded-sm tracking-tight active:scale-[0.98] transition-all shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center py-4 bg-[#6e99ff] hover:bg-[#5b8cff] text-background font-bold rounded-sm tracking-wide uppercase active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isPending ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) : isLogin ? (
-                  'Sign In'
+                  'Sign In to Terminal'
                 ) : (
                   'Create Account'
                 )}
@@ -226,13 +225,11 @@ export default function LoginPage() {
                     emailInput?.focus();
                   }
                 }}
-                className="w-full py-3.5 bg-surface-card text-text-primary text-sm font-medium rounded-sm border border-white/[0.03] hover:bg-surface-elevated transition-colors flex items-center justify-center gap-2 active:scale-[0.99] disabled:opacity-50"
+                className="w-full py-4 bg-[#14151a] hover:bg-[#1a1c23] text-text-primary text-xs font-bold uppercase tracking-widest rounded-sm border border-white/[0.03] transition-colors flex items-center justify-center gap-2 active:scale-[0.99] disabled:opacity-50"
               >
                 {magicPending ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Sparkles className="w-4 h-4" />
-                )}
+                ) : null}
                 {magicPending ? 'Sending...' : 'Send Magic Link'}
               </button>
             </form>
@@ -249,27 +246,38 @@ export default function LoginPage() {
               </div>
             )}
 
-            {/* Create Account Link */}
-            {isLogin && (
-              <p className="text-center text-sm text-text-muted">
-                New to the platform?{' '}
+              <p className="text-center text-sm text-text-muted mt-8">
+                New to Obsidian?{' '}
                 <button
                   type="button"
                   onClick={() => setMode('signup')}
-                  className="text-text-primary font-bold hover:text-accent transition-colors"
+                  className="text-text-primary font-bold hover:text-[#6e99ff] transition-colors"
                 >
                   Create Account
                 </button>
               </p>
-            )}
           </div>
+        </div>
 
-          {/* Footer Meta */}
-          <div className="mt-20 flex justify-center gap-6 opacity-40">
-            <span className="text-[10px] uppercase tracking-widest">SLA Compliant</span>
-            <span className="text-[10px] uppercase tracking-widest">SOC2 Type II</span>
-            <span className="text-[10px] uppercase tracking-widest">256-bit Encryption</span>
+        {/* Desktop Footer Meta (Right Side) */}
+        <div className="hidden lg:flex absolute bottom-8 right-8 gap-6 text-[10px] text-text-muted uppercase tracking-widest font-bold">
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 bg-text-muted rounded-full" />
+            <span>System: Operational</span>
           </div>
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-[12px]">lock</span>
+            <span>256-Bit Encrypted</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-[12px]">language</span>
+            <span>LDN-HK-NYC Gateway</span>
+          </div>
+        </div>
+
+        {/* Global Footer Copyright (Left side overlay but built into flex logic ideally, since left side has full height we can place it here with absolute) */}
+        <div className="absolute bottom-8 left-8 hidden lg:block text-[10px] text-text-muted uppercase tracking-widest font-bold z-50">
+          © 2024 OBSIDIAN LEDGER INSTITUTIONAL. PRECISION MILLED DATA.
         </div>
       </section>
 

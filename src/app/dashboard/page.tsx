@@ -2,12 +2,24 @@
 
 import { useState } from 'react';
 import { SAMPLE_KEY_LEVELS } from '@/lib/constants';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, cn } from '@/lib/utils';
 import { TradeReadinessModal } from '@/components/dashboard/TradeReadinessModal';
 
 export default function DashboardPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const levels = SAMPLE_KEY_LEVELS;
+
+  const crossMarket = [
+    { asset: 'NQ', trend: 'down', change: '-43.50' },
+    { asset: 'DXY', trend: 'up', change: '+0.12' },
+    { asset: 'US10Y', trend: 'level', change: '4.21%' },
+  ];
+
+  const sessionPulse = [
+    { session: 'Asia', status: 'Closed', active: false },
+    { session: 'London', status: 'Active', active: true },
+    { session: 'New York', status: 'Pre-Market', active: false },
+  ];
 
   return (
     <div className="space-y-6 animate-fade-in-up pb-8">
@@ -87,22 +99,26 @@ export default function DashboardPage() {
                 <h3 className="text-[0.6875rem] font-black uppercase tracking-widest text-text-muted">Cross-Market</h3>
                 <span className="material-symbols-outlined text-text-muted text-sm">sync_alt</span>
               </div>
-              <div className="space-y-3">
-                {[
-                  { name: 'Nasdaq (NQ)', pct: '+1.24%', dir: 'up' },
-                  { name: 'US Dollar (DXY)', pct: '-0.15%', dir: 'down' },
-                  { name: 'Gold (GC)', pct: 'FLAT', dir: 'flat' },
-                  { name: '10Y Yield (TNX)', pct: '+0.04', dir: 'up' },
-                ].map((m) => (
-                  <div key={m.name} className={`flex items-center justify-between ${m.dir === 'flat' ? 'opacity-60' : ''}`}>
-                    <div className="flex items-center gap-3">
-                      <div className={`w-1.5 h-1.5 rounded-full ${m.dir === 'up' ? 'bg-accent shadow-[0_0_6px_rgba(184,195,255,0.4)]' : m.dir === 'down' ? 'bg-error shadow-[0_0_6px_rgba(238,125,119,0.4)]' : 'bg-text-muted'}`} />
-                      <span className="text-xs font-medium">{m.name}</span>
-                    </div>
+              <div className="space-y-1">
+                {crossMarket.map((market, idx) => (
+                  <div key={idx} className="flex justify-between items-center py-2 bg-transparent hover:bg-white/[0.03] transition-colors rounded-sm px-2 cursor-pointer group">
                     <div className="flex items-center gap-2">
-                      <span className={`text-[10px] font-bold uppercase ${m.dir === 'up' ? 'text-accent' : m.dir === 'down' ? 'text-error' : 'text-text-muted'}`}>{m.pct}</span>
-                      <span className={`material-symbols-outlined text-sm ${m.dir === 'up' ? 'text-accent' : m.dir === 'down' ? 'text-error' : 'text-text-muted'}`}>
-                        {m.dir === 'up' ? 'trending_up' : m.dir === 'down' ? 'trending_down' : 'horizontal_rule'}
+                      <span className={cn(
+                        "w-1.5 h-1.5 rounded-full",
+                        market.trend === 'up' ? "bg-accent" : market.trend === 'down' ? "bg-[#ef5350]" : "bg-text-muted"
+                      )}></span>
+                      <span className="text-text-secondary font-semibold text-[11px] group-hover:text-white transition-colors">{market.asset}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className={cn(
+                        "font-mono text-[10px]",
+                        market.trend === 'up' ? "text-accent" : market.trend === 'down' ? "text-[#ef5350]" : "text-text-muted"
+                      )}>{market.change}</span>
+                      <span className={cn(
+                        "material-symbols-outlined text-[14px]",
+                        market.trend === 'up' ? "text-accent" : market.trend === 'down' ? "text-[#ef5350]" : "text-text-muted"
+                      )}>
+                        {market.trend === 'up' ? 'trending_up' : market.trend === 'down' ? 'trending_down' : 'horizontal_rule'}
                       </span>
                     </div>
                   </div>
@@ -112,24 +128,24 @@ export default function DashboardPage() {
 
             {/* Card 3: Session Pulse */}
             <div className="bg-surface-secondary p-5 rounded-lg border border-white/[0.04]">
-              <div className="flex justify-between items-center mb-5">
-                <h3 className="text-[0.6875rem] font-black uppercase tracking-widest text-text-muted">Session Pulse</h3>
+              <div className="flex justify-between items-center mb-4 cursor-pointer group hover:bg-white/[0.03] p-1 rounded-sm transition-colors">
+                <h3 className="text-text-muted text-[10px] tracking-[0.15em] font-black uppercase group-hover:text-white">Session Pulse</h3>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-accent shadow-[0_0_8px_rgba(184,195,255,0.4)]" />
-                  <span className="text-[10px] text-accent uppercase font-bold">Aligned</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_#8b9dff]"></span>
+                  <span className="text-accent text-[9px] font-bold uppercase tracking-widest">Aligned</span>
                 </div>
               </div>
+
               <div className="flex flex-col gap-3">
-                {[
-                  { zone: 'Tokyo Session', status: 'CONSOLIDATED', highlight: false },
-                  { zone: 'London Session', status: 'TRENDING-LONG', highlight: true },
-                  { zone: 'Globex', status: 'BULLISH BREAKOUT', highlight: true },
-                ].map((s) => (
-                  <div key={s.zone} className="flex justify-between items-center">
-                    <span className="text-xs font-bold">{s.zone}</span>
-                    <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${s.highlight ? 'bg-accent/10 text-accent' : 'bg-white/[0.04] text-text-muted'}`}>
-                      {s.status}
-                    </span>
+                {sessionPulse.map((pulse, idx) => (
+                  <div key={idx} className="flex justify-between items-center cursor-pointer group hover:bg-white/[0.03] p-1.5 rounded-sm transition-colors">
+                    <span className="text-text-secondary font-semibold text-[11px] group-hover:text-white">{pulse.session}</span>
+                    <span className={cn(
+                      "text-[9px] font-bold tracking-widest uppercase border rounded-sm px-2 py-0.5",
+                      pulse.active
+                        ? "text-accent border-accent/30 bg-accent/10"
+                        : "text-text-muted border-white/10"
+                    )}>{pulse.status}</span>
                   </div>
                 ))}
               </div>
@@ -178,62 +194,105 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* ROW 3: Execution Workflow */}
-          <div className="bg-surface-secondary p-6 rounded-lg border border-white/[0.04]">
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="font-headline text-sm font-bold text-text-muted uppercase tracking-widest">Execution Workflow</h3>
-              <div className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-accent text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
-                <span className="text-[10px] font-bold text-accent uppercase">Strategy Validated</span>
+          {/* ROW 3: TERMINAL EXECUTION BLOCK */}
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            {/* Left: Pre-Execution Checklist & Notes */}
+            <div className="bg-surface-secondary p-6 rounded-sm border border-white/[0.04] space-y-5 flex flex-col">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-[0_0_8px_rgba(184,195,255,0.4)]" />
+                <h3 className="text-xs font-black uppercase tracking-widest text-text-muted">Pre-Execution</h3>
               </div>
-            </div>
-            <div className="flex items-center justify-between mb-10 px-4">
-              {['Context', 'Structure', 'Bias', 'Plan', 'Ready'].map((label, i) => {
-                const isCompleted = i < 3;
-                const isLast = i === 4;
-                return (
-                  <div key={label} className="flex items-center flex-1 last:flex-none">
-                    <div className="flex flex-col items-center gap-3">
-                      <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center ${isCompleted ? 'border-accent text-accent bg-accent/10' : 'border-white/10 text-text-muted opacity-40'}`}>
-                        <span className="material-symbols-outlined text-xl">
-                          {i === 0 ? 'dataset' : i === 1 ? 'layers' : i === 2 ? 'analytics' : i === 3 ? 'edit_note' : 'play_arrow'}
-                        </span>
-                      </div>
-                      <span className={`text-[10px] font-bold uppercase tracking-widest ${isCompleted ? 'text-accent' : ''}`}>{label}</span>
-                    </div>
-                    {!isLast && (
-                      <div className={`h-px flex-1 mx-4 ${i < 2 ? 'bg-accent/30' : 'bg-white/[0.06]'}`} />
-                    )}
+              <div className="space-y-4 pt-2">
+                {[
+                  'Context Alignment Validated',
+                  'Setup Meets Minimum Grade',
+                  'Risk Per Trade < 1.0%',
+                  'Stop Loss Defined & Accepted'
+                ].map(c => (
+                  <div key={c} className="flex items-start gap-3 group">
+                    <input type="checkbox" className="mt-0.5 rounded-sm border-white/20 bg-surface-elevated text-accent cursor-pointer focus:ring-accent focus:ring-offset-0 transition-colors" />
+                    <span className="text-[11px] font-medium text-text-secondary leading-tight group-hover:text-white transition-colors cursor-pointer">{c}</span>
                   </div>
-                );
-              })}
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-white/[0.04] pt-6">
-              <div>
-                <span className="text-[10px] font-bold text-accent uppercase tracking-widest block mb-3">Primary Setup: Long</span>
-                <p className="text-xs text-text-primary leading-relaxed">
-                  Look for reaction at <span className="font-bold text-accent">{formatPrice(levels.vwap)} (VWAP)</span> during NY Open. Confirmation requires 5m value area shift and delta divergence. Target <span className="font-bold">{formatPrice(levels.pdh)}</span> (PDH).
-                </p>
+                ))}
               </div>
-              <div>
-                <span className="text-[10px] font-bold text-error uppercase tracking-widest block mb-3">Risk Scenario: Short</span>
-                <p className="text-xs text-text-primary leading-relaxed">
-                  If VWAP fails to hold on retest, monitor for aggressive sell-side imbalance toward <span className="font-bold">{formatPrice(levels.globexLow)}</span>. Neutralize bias if price sustains below IB Low.
-                </p>
+              <textarea
+                className="w-full flex-1 min-h-[80px] mt-4 bg-surface-elevated border border-white/[0.06] rounded-sm p-3 text-xs font-mono text-text-primary focus:outline-none focus:border-accent/40 resize-none placeholder:text-text-muted transition-colors"
+                placeholder="Tactical session notes..."
+              />
+            </div>
+
+            {/* Center: Active Exposure & Data */}
+            <div className="bg-surface-secondary p-6 rounded-sm border border-white/[0.04] space-y-6 flex flex-col relative overflow-hidden">
+              <div className="flex items-center justify-between z-10">
+                <h3 className="text-xs font-black uppercase tracking-widest text-text-muted">Active Exposure</h3>
+                <span className="text-[10px] bg-white/5 border border-white/10 px-2 py-0.5 rounded-sm text-text-muted font-mono uppercase font-bold tracking-widest">FLAT</span>
+              </div>
+              
+              <div className="flex-1 flex flex-col justify-center items-center opacity-30 z-10 transition-opacity hover:opacity-100">
+                <span className="material-symbols-outlined text-[48px] mb-4">monitoring</span>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted">No Active Positions</p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 border-t border-white/[0.04] pt-5 z-10">
+                <div>
+                  <span className="text-[9px] font-bold text-text-muted uppercase tracking-wider block mb-1">Realized PNL</span>
+                  <span className="text-[15px] font-black font-mono text-text-primary">$0.00</span>
+                </div>
+                <div>
+                  <span className="text-[9px] font-bold text-text-muted uppercase tracking-wider block mb-1">Session Vol</span>
+                  <span className="text-[15px] font-black font-mono text-text-primary">0 LOTS</span>
+                </div>
+              </div>
+
+              {/* Decorative grid background */}
+              <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+            </div>
+
+            {/* Right: Order Entry Terminal */}
+            <div className="bg-[#14151a] p-6 rounded-sm border border-white/[0.06] flex flex-col justify-between relative shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-20 xl:-mr-4 xl:scale-[1.02] transition-transform">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-[11px] font-black uppercase tracking-widest text-white">Order Entry</h3>
+                <div className="flex gap-1 bg-white/[0.03] rounded-sm p-1 border border-white/[0.05]">
+                  <button className="bg-white/10 text-white text-[9px] font-bold uppercase py-1 px-3 rounded-sm shadow-sm">LMT</button>
+                  <button className="text-text-muted hover:text-white text-[9px] font-bold uppercase py-1 px-3 rounded-sm transition-colors">MKT</button>
+                  <button className="text-text-muted hover:text-white text-[9px] font-bold uppercase py-1 px-3 rounded-sm transition-colors">STP</button>
+                </div>
+              </div>
+
+              <div className="space-y-5 mb-8">
+                {/* Price */}
+                <div>
+                  <label className="text-[9px] font-bold uppercase tracking-widest text-text-muted mb-1.5 block">Entry Price</label>
+                  <div className="relative group">
+                    <input type="text" className="w-full h-11 px-3 bg-white/[0.02] border border-white/5 rounded-sm text-sm font-bold font-mono text-right text-white focus:border-accent/50 outline-none transition-colors" defaultValue="5120.50" />
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-text-muted font-bold font-mono uppercase">USD</span>
+                  </div>
+                </div>
+                {/* Quantity */}
+                <div>
+                  <div className="flex justify-between items-end mb-1.5">
+                    <label className="text-[9px] font-bold uppercase tracking-widest text-text-muted">Quantity</label>
+                    <span className="text-[9px] text-text-muted font-mono font-bold">Max: 10 Lots</span>
+                  </div>
+                  <input type="text" className="w-full h-11 px-3 bg-white/[0.02] border border-white/5 rounded-sm text-sm font-bold font-mono text-right text-white focus:border-accent/50 outline-none mb-3 transition-colors" defaultValue="2" />
+                  
+                  <div className="flex gap-2">
+                    {['25%', '50%', '75%', 'MAX'].map(pct => (
+                      <button key={pct} className="flex-1 py-1.5 bg-white/[0.03] hover:bg-white/10 text-text-muted hover:text-white border border-white/5 hover:border-white/20 text-[9px] font-black uppercase tracking-wider rounded-sm transition-all active:scale-95">{pct}</button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 mt-auto">
+                <button className="h-16 group bg-[#26a69a]/10 hover:bg-[#26a69a]/20 border border-[#26a69a]/30 hover:border-[#26a69a]/50 text-[#26a69a] hover:text-[#4db6ac] font-black text-sm uppercase tracking-widest rounded-sm transition-all flex items-center justify-center shadow-[0_0_20px_rgba(38,166,154,0.05)] hover:shadow-[0_0_30px_rgba(38,166,154,0.15)] active:scale-95">
+                  BUY LMT
+                </button>
+                <button className="h-16 group bg-[#ef5350]/10 hover:bg-[#ef5350]/20 border border-[#ef5350]/30 hover:border-[#ef5350]/50 text-[#ef5350] hover:text-[#e57373] font-black text-sm uppercase tracking-widest rounded-sm transition-all flex items-center justify-center shadow-[0_0_20px_rgba(239,83,80,0.05)] hover:shadow-[0_0_30px_rgba(239,83,80,0.15)] active:scale-95">
+                  SELL LMT
+                </button>
               </div>
             </div>
-          </div>
-          {/* ROW 4: Tactical Notes */}
-          <div className="bg-surface-secondary p-6 rounded-lg border border-white/[0.04]">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-headline text-sm font-bold text-text-muted uppercase tracking-widest">Tactical Notes</h3>
-              <span className="material-symbols-outlined text-text-muted text-lg">edit_note</span>
-            </div>
-            <textarea
-              className="w-full h-32 bg-background/50 border border-white/[0.06] rounded-sm p-4 text-xs font-mono text-text-primary focus:outline-none focus:border-accent/40 resize-none placeholder:text-text-muted"
-              placeholder="Enter session specific notes, rapid thoughts, or contextual observations here..."
-              defaultValue="[08:45] Pre-market volume unusually light. Waiting for CPI print at 08:30.\n[09:15] NQ pushing HOD. ES lagging. Divergence noted.\n[09:35] First interaction with VWAP. Buyers stepping in on Tape."
-            />
           </div>
         </div>
 
@@ -262,44 +321,47 @@ export default function DashboardPage() {
 
           {/* Bias Breakdown */}
           <div className="bg-surface-card p-6 rounded-lg border border-white/[0.04]">
-            <h3 className="font-headline text-xs font-bold text-text-muted uppercase tracking-widest mb-6">Bias Vectors</h3>
-            <div className="space-y-5">
-              {[
-                { label: 'Trend Alignment', pct: 92, color: 'bg-accent' },
-                { label: 'Volume Profile', pct: 78, color: 'bg-accent' },
-                { label: 'Orderflow Delta', pct: 54, color: 'bg-text-muted' },
-              ].map(({ label, pct, color }) => (
-                <div key={label}>
-                  <div className="flex justify-between text-[10px] font-bold uppercase mb-2">
-                    <span>{label}</span>
-                    <span className={pct > 70 ? 'text-accent' : 'text-text-muted'}>{pct}%</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-surface-elevated rounded-full">
-                    <div className={`h-full ${color} rounded-full transition-all`} style={{ width: `${pct}%` }} />
-                  </div>
+            <h3 className="text-text-muted text-[10px] tracking-[0.15em] font-black uppercase mb-6">Bias Vectors</h3>
+            <div className="flex flex-col gap-5">
+              <div className="cursor-pointer group">
+                <div className="flex justify-between text-[10px] mb-2">
+                  <span className="text-white font-bold tracking-widest uppercase group-hover:text-accent transition-colors">Trend Alignment</span>
+                  <span className="font-mono font-bold text-white group-hover:text-accent transition-colors">92%</span>
                 </div>
-              ))}
+                <div className="h-1.5 bg-surface-primary rounded-full overflow-hidden">
+                  <div className="h-full bg-white group-hover:bg-accent transition-colors w-[92%]"></div>
+                </div>
+              </div>
+              <div className="cursor-pointer group">
+                <div className="flex justify-between text-[10px] mb-2">
+                  <span className="text-white font-bold tracking-widest uppercase group-hover:text-accent transition-colors">Volume Profile</span>
+                  <span className="font-mono font-bold text-white group-hover:text-accent transition-colors">78%</span>
+                </div>
+                <div className="h-1.5 bg-surface-primary rounded-full overflow-hidden">
+                  <div className="h-full bg-white group-hover:bg-accent transition-colors w-[78%]"></div>
+                </div>
+              </div>
+              <div className="cursor-pointer group">
+                <div className="flex justify-between text-[10px] mb-2">
+                  <span className="text-white font-bold tracking-widest uppercase group-hover:text-accent transition-colors">Orderflow Delta</span>
+                  <span className="font-mono font-bold text-white group-hover:text-accent transition-colors">54%</span>
+                </div>
+                <div className="h-1.5 bg-surface-primary rounded-full overflow-hidden">
+                  <div className="h-full bg-white/40 group-hover:bg-accent transition-colors w-[54%]"></div>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Execution Presets */}
           <div className="bg-surface-card p-6 rounded-lg border border-white/[0.04]">
-            <h3 className="font-headline text-xs font-bold text-text-muted uppercase tracking-widest mb-5">Execution Presets</h3>
-            <div className="flex flex-col gap-3">
-              {[
-                { name: 'Standard', desc: 'Risk 1.0% | Risk/Reward 1:2', icon: 'check_circle', active: true },
-                { name: 'Aggressive', desc: 'Risk 2.0% | Scaling In/Out', icon: 'local_fire_department', active: false },
-                { name: 'Hedge', desc: 'Risk 0.25% | Counter-Trend', icon: 'shield', active: false },
-                { name: 'Flash-In', desc: 'Market Order | Quick Scalp', icon: 'flash_on', active: false },
-              ].map(({ name, desc, icon, active }) => (
-                <div key={name} className={`p-4 rounded-sm cursor-pointer transition-colors ${active ? 'bg-surface-elevated/60 border-l-2 border-accent' : 'bg-surface-elevated/20 hover:bg-surface-elevated/40 border-l-2 border-transparent'}`}>
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-xs font-bold">{name}</span>
-                    <span className={`material-symbols-outlined text-sm ${active ? 'text-accent' : 'text-text-muted'}`}>{icon}</span>
-                  </div>
-                  <p className="text-[10px] text-text-muted">{desc}</p>
-                </div>
-              ))}
+            <h3 className="text-text-muted text-[10px] tracking-[0.15em] font-black uppercase mb-4">Execution Presets</h3>
+            <div className="border border-accent/20 bg-accent/5 rounded-sm p-4 cursor-pointer hover:bg-accent/10 hover:border-accent/40 transition-colors group">
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-white font-bold text-[11px] group-hover:text-accent transition-colors">Standard</span>
+                <span className="material-symbols-outlined text-accent text-[16px]">check_circle</span>
+              </div>
+              <span className="text-text-muted text-[9px] group-hover:text-text-secondary transition-colors">Risk 1.0% | Risk/Reward 1:2</span>
             </div>
           </div>
 

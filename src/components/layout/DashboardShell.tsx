@@ -19,7 +19,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       <TopBar />
       <Sidebar />
 
-      <main className="ml-16 mt-12 mb-8 min-h-screen transition-all duration-300">
+      <main className="ml-16 peer-hover:ml-64 mt-12 min-h-[calc(100vh-3rem)] pb-14 transition-all duration-300">
         <div className="p-6">
           {children}
         </div>

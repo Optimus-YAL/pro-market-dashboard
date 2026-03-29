@@ -1,3 +1,18 @@
 {
-    "search.useParentIgnoreFiles": false
+  "css.lint.unknownAtRules": "ignore",
+  "cSpell.words": [
+    "BTCUSDT",
+    "FOMC",
+    "MACD",
+    "Orderflow",
+    "Tradovate",
+    "VWAP",
+    "Watchlist",
+    "XAUUSD",
+    "behaviour",
+    "globex",
+    "shadcn",
+    "nums",
+    "tabular"
+  ]
 }
