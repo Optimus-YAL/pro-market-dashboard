@@ -4,9 +4,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useTerminalStore } from '@/store/useTerminalStore';
+import { logoutAction } from '@/app/login/actions';
 
 export function TopBar() {
   const pathname = usePathname();
+  const { tradeStatus, setTradeStatus } = useTerminalStore();
 
   /* Top-bar tabs from institutional reference */
   const TOP_TABS = [
@@ -46,23 +49,38 @@ export function TopBar() {
         {/* Trade Status Context Indicator */}
         <div className="hidden lg:flex items-center gap-2 border border-white/10 rounded-full px-4 py-1.5 mr-2 relative group cursor-pointer">
           <span className="text-[9px] font-bold text-text-muted uppercase tracking-widest">Trade Status:</span>
-          <span className="text-[9px] font-black text-[#22C55E] uppercase animate-pulse">Active</span>
+          <span className={`text-[9px] font-black uppercase flex items-center gap-1 ${
+            tradeStatus === 'Active' ? 'text-accent animate-pulse' :
+            tradeStatus === 'Monitoring' ? 'text-warning' :
+            'text-text-muted'
+          }`}>
+            {tradeStatus === 'Active' && <span className="w-1.5 h-1.5 rounded-full bg-accent" />}
+            {tradeStatus === 'Monitoring' && <span className="w-1.5 h-1.5 rounded-full bg-warning" />}
+            {tradeStatus}
+          </span>
           
           {/* Popover Menu Reference Implementation */}
-          <div className="absolute top-[120%] right-0 w-48 bg-[#121212] border border-white/10 rounded-md shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto z-50 overflow-hidden flex flex-col">
-            <button className="flex items-center justify-between px-4 py-2 hover:bg-white/5 text-xs text-white transition-colors w-full text-left">
-              <span className="font-semibold">Focus</span>
-              <span className="text-[10px] text-text-muted font-mono tracking-widest">F</span>
-            </button>
-            <div className="px-4 py-1 text-[9px] uppercase font-bold tracking-widest text-text-muted">Edit</div>
-            <button className="flex items-center justify-between px-4 py-2 hover:bg-white/5 text-xs text-text-secondary hover:text-white transition-colors w-full text-left">
-              <span>Edit</span>
-              <span className="text-[10px] text-text-muted font-mono tracking-widest">E</span>
-            </button>
-            <button className="flex items-center justify-between px-4 py-2 hover:bg-white/5 text-xs text-text-secondary hover:text-white transition-colors w-full text-left">
-              <span>Download</span>
-              <span className="text-[10px] text-text-muted font-mono tracking-widest">⇧D</span>
-            </button>
+          <div className="absolute top-full right-0 pt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto z-50 w-48">
+            <div className="bg-[#121212] border border-white/10 rounded-md shadow-2xl flex flex-col overflow-hidden">
+              <button className="flex items-center justify-between px-4 py-2 hover:bg-white/5 text-xs text-white transition-colors w-full text-left">
+                <span className="font-semibold">Focus</span>
+                <span className="text-[10px] text-text-muted font-mono tracking-widest">F</span>
+              </button>
+              <div className="px-4 py-1 text-[9px] uppercase font-bold tracking-widest text-text-muted border-t border-white/5 mt-1 pt-2">Set Status</div>
+              <button onClick={() => setTradeStatus('Active')} className="flex items-center justify-between px-4 py-2 hover:bg-white/5 text-xs text-text-secondary hover:text-white transition-colors w-full text-left">
+                <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />Active</span>
+              </button>
+              <button onClick={() => setTradeStatus('Monitoring')} className="flex items-center justify-between px-4 py-2 hover:bg-white/5 text-xs text-text-secondary hover:text-white transition-colors w-full text-left">
+                <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-warning rounded-full" />Monitoring</span>
+              </button>
+              <button onClick={() => setTradeStatus('Flat')} className="flex items-center justify-between px-4 py-2 hover:bg-white/5 text-xs text-text-secondary hover:text-white transition-colors w-full text-left">
+                <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-text-muted rounded-full" />Flat</span>
+              </button>
+              <button className="flex items-center justify-between px-4 py-2 hover:bg-white/5 text-xs text-text-secondary hover:text-white transition-colors w-full text-left">
+                <span>Download</span>
+                <span className="text-[10px] text-text-muted font-mono tracking-widest">⇧D</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -74,10 +92,27 @@ export function TopBar() {
         </div>
 
         {/* Primary Account Actions */}
-        <div className="flex items-center gap-2 bg-[#121212] px-2 py-1.5 rounded-md border border-white/5">
-          <Link href="/dashboard/settings" className="w-8 h-8 rounded-sm text-text-muted hover:text-white flex items-center justify-center transition-colors" title="Account">
-            <span className="material-symbols-outlined text-[16px]">person</span>
-          </Link>
+        <div className="flex items-center gap-2 bg-[#121212] rounded-md relative group cursor-pointer">
+          <div className="w-8 h-8 rounded-sm text-[#3B82F6] border border-[#3B82F6]/30 bg-[#3B82F6]/10 flex items-center justify-center transition-colors">
+            <span className="material-symbols-outlined text-[18px]">person</span>
+          </div>
+          
+          {/* Profile Dropdown Menu */}
+          <div className="absolute top-full right-0 pt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto z-50 w-48">
+            <div className="bg-[#121212] border border-white/10 rounded-md shadow-2xl flex flex-col overflow-hidden">
+              <div className="px-4 py-2 text-[10px] uppercase font-bold tracking-widest text-[#3B82F6] bg-[#3B82F6]/5 border-b border-white/5">Account</div>
+              
+              <Link href="/dashboard/settings" className="flex items-center justify-between px-4 py-2.5 hover:bg-white/5 text-xs text-text-secondary hover:text-white transition-colors w-full text-left">
+                <span className="flex items-center gap-2"><span className="material-symbols-outlined text-[14px]">settings</span>Settings</span>
+              </Link>
+
+              <form action={logoutAction} className="border-t border-white/5">
+                <button type="submit" className="flex items-center justify-between px-4 py-2.5 hover:bg-white/5 text-xs text-text-secondary hover:text-[#EF4444] transition-colors w-full text-left">
+                  <span className="flex items-center gap-2"><span className="material-symbols-outlined text-[14px]">logout</span>Log Out</span>
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </header>

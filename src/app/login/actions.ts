@@ -156,5 +156,5 @@ export async function magicLinkAction(
 // ─── Logout ─────────────────────────────────────────────────
 export async function logoutAction(): Promise<void> {
   await deleteSession();
-  redirect('/login');
+  redirect('/');
 }

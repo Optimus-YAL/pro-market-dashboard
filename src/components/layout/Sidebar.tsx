@@ -19,7 +19,6 @@ const TOOLS_NAV = [
   { icon: 'tune',          label: 'Presets',   href: '/dashboard/presets' },
   { icon: 'schedule',      label: 'Sessions',  href: '/dashboard/sessions' },
   { icon: 'chat',          label: 'Comms',     href: '/dashboard/comms' },
-  { icon: 'settings',      label: 'Settings',  href: '/dashboard/settings' },
 ];
 
 export function Sidebar() {
@@ -77,18 +76,6 @@ export function Sidebar() {
         </button>
       </div>
 
-      {/* ── Bottom System Badge ── */}
-      <div className="mt-auto px-3 border-t border-border-primary/10 pt-4 overflow-hidden">
-        <div className="flex items-center gap-4 p-2">
-          <div className="w-8 h-8 rounded-full bg-accent-container flex items-center justify-center shrink-0">
-            <span className="text-[10px] font-bold text-accent">SYS</span>
-          </div>
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 overflow-hidden">
-            <p className="text-[10px] font-bold text-text-primary truncate uppercase tracking-widest">Institutional</p>
-            <p className="text-[8px] text-text-secondary truncate uppercase">Terminal 1</p>
-          </div>
-        </div>
-      </div>
     </aside>
   );
 }

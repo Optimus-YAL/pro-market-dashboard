@@ -1,6 +1,10 @@
 'use client';
 
+import { useTerminalStore } from '@/store/useTerminalStore';
+
 export default function SettingsPage() {
+  const { theme, setTheme, dailyLossLimit, maxDrawdown, setRiskLimits } = useTerminalStore();
+
   return (
     <div className="animate-fade-in-up w-full pb-20">
       {/* Page Header */}
@@ -62,26 +66,26 @@ export default function SettingsPage() {
             <p className="text-[11px] text-text-muted">Visual interface and contrast profiles.</p>
           </div>
           <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button className="flex flex-col p-4 bg-surface-secondary border-2 border-accent rounded-md items-center justify-center gap-4 transition-all">
+            <button onClick={() => setTheme('Dark')} className={`flex flex-col p-4 bg-surface-secondary rounded-md items-center justify-center gap-4 transition-all group ${theme === 'Dark' ? 'border-2 border-accent' : 'border border-transparent hover:border-white/10'}`}>
               <div className="w-full h-12 bg-surface-primary border border-white/5 rounded-sm flex flex-col gap-1.5 p-2">
                 <div className="h-1.5 w-1/2 bg-white/20 rounded-full" />
                 <div className="h-1 w-full bg-white/5 rounded-full" />
               </div>
-              <span className="text-[11px] text-white font-semibold">Dark Mode</span>
+              <span className={`text-[11px] font-semibold transition-colors ${theme === 'Dark' ? 'text-white' : 'text-text-muted group-hover:text-white'}`}>Dark Mode</span>
             </button>
-            <button className="flex flex-col p-4 bg-surface-secondary border border-transparent hover:border-white/10 rounded-md items-center justify-center gap-4 transition-all group">
+            <button onClick={() => setTheme('Light')} className={`flex flex-col p-4 bg-surface-secondary rounded-md items-center justify-center gap-4 transition-all group ${theme === 'Light' ? 'border-2 border-accent' : 'border border-transparent hover:border-white/10'}`}>
               <div className="w-full h-12 bg-white border border-black/10 rounded-sm flex flex-col gap-1.5 p-2">
                 <div className="h-1.5 w-1/2 bg-black/20 rounded-full" />
                 <div className="h-1 w-full bg-black/5 rounded-full" />
               </div>
-              <span className="text-[11px] text-text-muted group-hover:text-white transition-colors">Light Mode</span>
+              <span className={`text-[11px] font-semibold transition-colors ${theme === 'Light' ? 'text-black' : 'text-text-muted group-hover:text-white'}`}>Light Mode</span>
             </button>
-            <button className="flex flex-col p-4 bg-surface-secondary border border-transparent hover:border-white/10 rounded-md items-center justify-center gap-4 transition-all group">
+            <button onClick={() => setTheme('System')} className={`flex flex-col p-4 bg-surface-secondary rounded-md items-center justify-center gap-4 transition-all group ${theme === 'System' ? 'border-2 border-accent' : 'border border-transparent hover:border-white/10'}`}>
               <div className="w-full h-12 bg-black border border-white/20 rounded-sm flex flex-col gap-1.5 p-2">
                 <div className="h-1.5 w-1/2 bg-accent rounded-full" />
                 <div className="h-1 w-full bg-accent/30 rounded-full" />
               </div>
-              <span className="text-[11px] text-text-muted group-hover:text-white transition-colors">High Contrast</span>
+              <span className={`text-[11px] font-semibold transition-colors ${theme === 'System' ? 'text-white' : 'text-text-muted group-hover:text-white'}`}>High Contrast</span>
             </button>
           </div>
         </section>
@@ -138,21 +142,23 @@ export default function SettingsPage() {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-[9px] uppercase font-bold text-text-secondary tracking-widest">Max Daily Loss (%)</span>
-                  <span className="text-[10px] font-mono text-white">2.50%</span>
+                  <span className="text-[10px] font-mono text-white">{dailyLossLimit.toFixed(2)}%</span>
                 </div>
-                <div className="h-1 bg-surface-primary rounded-full relative">
-                  <div className="absolute left-0 top-0 h-full bg-accent rounded-full w-[25%]"></div>
-                  <div className="absolute left-[25%] top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow cursor-pointer"></div>
+                <div className="h-2 bg-surface-primary rounded-full relative flex items-center">
+                  <div className="absolute left-0 top-0 h-full bg-accent rounded-full pointer-events-none" style={{ width: `${(dailyLossLimit / 5) * 100}%` }}></div>
+                  <div className="absolute h-4 w-4 bg-white rounded-full shadow pointer-events-none -ml-2" style={{ left: `${(dailyLossLimit / 5) * 100}%` }}></div>
+                  <input type="range" min="0.5" max="5.0" step="0.1" value={dailyLossLimit} onChange={(e) => setRiskLimits(parseFloat(e.target.value), maxDrawdown)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-[9px] uppercase font-bold text-text-secondary tracking-widest">Max Drawdown</span>
-                  <span className="text-[10px] font-mono text-white">$15,000</span>
+                  <span className="text-[10px] font-mono text-white">${(maxDrawdown * 3000).toLocaleString()}</span>
                 </div>
-                <div className="h-1 bg-surface-primary rounded-full relative">
-                  <div className="absolute left-0 top-0 h-full bg-accent rounded-full w-[40%]"></div>
-                  <div className="absolute left-[40%] top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow cursor-pointer"></div>
+                <div className="h-2 bg-surface-primary rounded-full relative flex items-center">
+                  <div className="absolute left-0 top-0 h-full bg-accent rounded-full pointer-events-none" style={{ width: `${(maxDrawdown / 10) * 100}%` }}></div>
+                  <div className="absolute h-4 w-4 bg-white rounded-full shadow pointer-events-none -ml-2" style={{ left: `${(maxDrawdown / 10) * 100}%` }}></div>
+                   <input type="range" min="1.0" max="10.0" step="0.5" value={maxDrawdown} onChange={(e) => setRiskLimits(dailyLossLimit, parseFloat(e.target.value))} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                 </div>
               </div>
             </div>
